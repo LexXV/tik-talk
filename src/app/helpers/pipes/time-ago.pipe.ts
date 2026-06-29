@@ -23,7 +23,8 @@ export class TimeAgoPipe implements PipeTransform {
     /*const createdAt = DateTime.fromISO(value, {
       zone: 'utc'
     })
-    const now = DateTime.utc()
+      .toLocal();
+    const now = DateTime.now()
 
     const diffInSeconds = Math.floor(
       now.diff(createdAt, 'seconds').seconds
@@ -92,6 +93,7 @@ export class TimeAgoPipe implements PipeTransform {
     ])} назад`;*/
 
     return DateTime.fromISO(value, { zone: 'utc' })
+      .toLocal()
       .setLocale('ru')
       .toRelative() ?? '';
   }
