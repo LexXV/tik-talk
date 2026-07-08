@@ -7,6 +7,7 @@ import { canActivateAuth } from './auth/access.guard';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
 import { chatsRoutes } from './pages/chats-page/chatsRoutes';
+import { COFormsExperimentComponent } from './experimental/co-forms-experiment/co-forms-experiment.component';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,6 @@ export const routes: Routes = [
     ],
     canActivate: [canActivateAuth]
   },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  { path: 'experimental', component: COFormsExperimentComponent }
 ];
