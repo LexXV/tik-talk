@@ -1,0 +1,55 @@
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { SubscriberCardComponent } from './subscriber-card/subscriber-card.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ProfileService } from '@tt/profile';
+import { firstValueFrom } from 'rxjs';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [
+    SvgIconComponent,
+    SubscriberCardComponent,
+    RouterLink,
+    AsyncPipe,
+    ImgUrlPipe,
+    RouterLinkActive,
+  ],
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
+})
+export class SidebarComponent /*aka Reha Sidebar Component*/ implements OnInit {
+  profileService = inject(ProfileService);
+  subscribers$ = this.profileService.getSubscribersShortList();
+
+  me = this.profileService.me;
+
+  menuItems = [
+    {
+      label: 'Моя страница',
+      icon: 'home',
+      link: 'profile/me',
+    },
+    {
+      label: 'Чаты',
+      icon: 'chats',
+      link: 'chats',
+    },
+    {
+      label: 'Поиск',
+      icon: 'search',
+      link: 'search',
+    },
+  ];
+
+  ngOnInit() {
+    firstValueFrom(this.profileService.getMe());
+  }
+
+  /*@HostListener('click', ['$event'])
+  onClick(event: MouseEvent) {
+    console.log('click');
+    console.log(event);
+  }*/
+}

@@ -1,0 +1,174 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <app-order-details [form]="orderDetails"></app-order-details>
+
+  <app-patient-criteria [form]="patientCriteria"></app-patient-criteria>
+
+  <div [formGroup]="scheduling">
+    <h3 class="h6 mb16">Scheduling</h3>
+
+    <div class="form-grid">
+      <label class="tt-control-label mb16">
+        Start Date
+        <input formControlName="startDate" class="tt-input" type="date" />
+      </label>
+
+      <label class="tt-control-label mb16">
+        End Date
+        <input formControlName="endDate" class="tt-input" type="date" />
+      </label>
+    </div>
+
+    @if (scheduling.hasError('invalidDateRange') && (scheduling.touched || scheduling.dirty)) {
+      <div style="color: red; margin-bottom: 16px">
+        {{ scheduling.getError('invalidDateRange')?.message }}
+      </div>
+    }
+
+    <div class="form-grid">
+      <label class="tt-control-label mb16">
+        Frequency
+        <select class="tt-input" formControlName="frequency">
+          <option value="Once">Once</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div [formGroup]="alerts">
+    <h3 class="h6 mb16">Alerts</h3>
+
+    <label class="tt-control-label mb16">
+      <input type="checkbox" formControlName="notifyPhysician" />
+      Notify physician
+    </label>
+
+    <label class="tt-control-label mb16">
+      <input type="checkbox" formControlName="criticalResultAlert" />
+      Critical result alert
+    </label>
+  </div>
+
+  <button class="btn" type="button" (click)="addMedication()">Add medication</button>
+
+  <div formArrayName="medications">
+    @for (medication of medications.controls; track medication) {
+      <div [formGroupName]="$index">
+        <h3 class="h6 mb16">Medication #{{ $index + 1 }}</h3>
+
+        <div class="form-grid">
+          <label class="tt-control-label mb16">
+            Medication Name
+            <input formControlName="medicationName" class="tt-input" type="text" />
+          </label>
+
+          <label class="tt-control-label mb16">
+            Dosage
+            <input formControlName="dosage" class="tt-input" type="text" [maskito]="dosageMask" />
+          </label>
+
+          <button class="btn" type="button" (click)="insertMedication($index)">
+            Insert before
+          </button>
+
+          <button class="btn" type="button" (click)="removeMedication($index)">Remove</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <button class="btn" type="button" (click)="addDiagnosis()">Add diagnosis</button>
+
+  <div formArrayName="diagnoses">
+    @for (diagnosis of diagnoses.controls; track diagnosis) {
+      <div [formGroupName]="$index">
+        <h3 class="h6 mb16">Diagnosis #{{ $index + 1 }}</h3>
+
+        <div class="form-grid">
+          <label class="tt-control-label mb16">
+            Diagnosis Code
+            <input formControlName="diagnosisCode" class="tt-input" type="text" />
+          </label>
+
+          <label class="tt-control-label mb16">
+            Description
+            <input formControlName="diagnosisDescription" class="tt-input" type="text" />
+          </label>
+
+          <button class="btn" type="button" (click)="removeDiagnosis($index)">Remove</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <button class="btn" type="button" (click)="addLab()">Add lab</button>
+
+  <div formArrayName="labs">
+    @for (lab of labs.controls; track lab) {
+      <div [formGroupName]="$index">
+        <h3 class="h6 mb16">Lab #{{ $index + 1 }}</h3>
+
+        <div class="form-grid">
+          <label class="tt-control-label mb16">
+            Test Name
+            <input formControlName="testName" class="tt-input" type="text" />
+          </label>
+
+          <label class="tt-control-label mb16">
+            Test Code
+            <input formControlName="testCode" class="tt-input" type="text" />
+          </label>
+
+          <button class="btn" type="button" (click)="removeLab($index)">Remove</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <h3 class="h6 mb16">Metadata</h3>
+
+  <div [formGroup]="metadata">
+    @for (key of metadataKeys; track key) {
+      <div class="form-grid">
+        <label class="tt-control-label mb16">
+          {{ key }}
+          <input [formControlName]="key" class="tt-input" type="text" />
+        </label>
+
+        <button
+          class="btn"
+          type="button"
+          style="grid-column-start: 1; width: 100px"
+          (click)="removeMetadataField(key)"
+        >
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+
+  <h3 class="h6 mb16">Custom Fields</h3>
+
+  <div [formGroup]="customFields">
+    @for (key of customFieldKeys; track key) {
+      <div class="form-grid">
+        <label class="tt-control-label mb16">
+          {{ key }}
+          <input [formControlName]="key" class="tt-input" type="text" />
+        </label>
+
+        <button
+          class="btn"
+          type="button"
+          style="grid-column-start: 1; width: 100px"
+          (click)="removeCustomField(key)"
+        >
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+
+  <button class="btn" type="submit">Submit</button>
+</form>
