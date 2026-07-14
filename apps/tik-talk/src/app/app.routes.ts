@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
-import { LayoutComponent } from './common-ui/layout/layout.component';
-import { canActivateAuth } from '@tt/auth';
-import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
-import { NewsPageComponent } from './pages/news-page/news-page.component';
-import { chatsRoutes } from './pages/chats-page/chatsRoutes';
-import { COFormsExperimentComponent } from './experimental/co-forms-experiment/co-forms-experiment.component';
+import { canActivateAuth, LoginPageComponent } from '@tt/auth';
+import { ProfilePageComponent, SearchPageComponent, SettingsPageComponent } from '@tt/profile';
+import { LayoutComponent } from '@tt/layout';
+import { NewsPageComponent } from '@tt/news';
+import { chatsRoutes } from '@tt/chats';
+import { COFormsExperimentComponent } from '@tt/experimental';
 
 export const routes: Routes = [
   {

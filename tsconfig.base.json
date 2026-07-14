@@ -17,7 +17,12 @@
       "@tt/posts": ["./libs/posts/src/index.ts"],
       "@tt/profile": ["./libs/profile/src/index.ts"],
       "@tt/common-ui": ["./libs/common-ui/src/index.ts"],
-      "@tt/shared": ["./libs/shared/src/index.ts"]
+      "@tt/shared": ["./libs/shared/src/index.ts"],
+      "@tt/chats": ["./libs/chats/src/index.ts"],
+      "@tt/layout": ["./libs/layout/src/index.ts"],
+      "@tt/interfaces/*": ["./libs/interfaces/src/lib/*"],
+      "@tt/news": ["./libs/news/src/index.ts"],
+      "@tt/experimental": ["./libs/experimental/src/index.ts"]
     },
     "rootDir": "."
   },

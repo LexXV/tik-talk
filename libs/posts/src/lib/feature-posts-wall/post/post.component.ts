@@ -4,7 +4,7 @@ import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common
 import { DatePipe } from '@angular/common';
 import { CommentComponent, PostInputComponent } from '../../ui';
 import { firstValueFrom } from 'rxjs';
-import { ProfileService } from '@tt/profile';
+import { GlobalStoreService } from '@tt/shared';
 
 @Component({
   selector: 'app-post',
@@ -24,7 +24,7 @@ export class PostComponent /*aka kind-of Clinical Orders Worklist with To-Do but
 {
   postService = inject(PostService);
 
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
 
   post = input<Post>();
   comments = signal<PostComment[]>([]);

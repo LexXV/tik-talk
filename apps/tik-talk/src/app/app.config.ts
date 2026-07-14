@@ -8,7 +8,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authTokenInterceptor } from '@tt/auth';
-import { appConfigInitializer } from './core/config/app-config';
+import { appConfigInitializer } from '@tt/shared';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -11,8 +11,7 @@ import { PostComponent } from '../post/post.component';
 import { PostService } from '../../data';
 import { debounceTime, firstValueFrom, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Debounce } from '@tt/shared';
-import { ProfileService } from '@tt/profile';
+import { Debounce, GlobalStoreService } from '@tt/shared';
 
 @Component({
   selector: 'app-post-feed',
@@ -27,7 +26,7 @@ export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   hostElement = inject(ElementRef);
   r2 = inject(Renderer2);
 
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
 
   feed = this.postService.posts;
 

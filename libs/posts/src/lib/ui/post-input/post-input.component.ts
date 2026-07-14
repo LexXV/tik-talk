@@ -8,7 +8,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
-import { ProfileService } from '@tt/profile';
+import { GlobalStoreService } from '@tt/shared';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 export class PostInputComponent /*aka Clinical Order Customization Area at the Page*/ {
   r2 = inject(Renderer2);
 
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
 
   isCommentInput = input(false);
 
