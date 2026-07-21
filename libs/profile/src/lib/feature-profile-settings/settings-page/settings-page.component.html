@@ -1,4 +1,6 @@
-<app-profile-header></app-profile-header>
+@if (me(); as me) {
+  <app-profile-header [profile]="me"></app-profile-header>
+}
 
 <form class="profile-form__wrapper" [formGroup]="form">
   <div class="profile-form">

@@ -20,4 +20,61 @@ export class ProfileEffects {
       map(res => profileActions.profilesLoaded({ profiles: res.items }))
     );
   });
+
+  loadMe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profileActions.loadMe),
+      switchMap(() =>
+        this.profileService.getMe().pipe(
+          map(me => profileActions.loadMeSuccess({ me }))
+        )
+      )
+    )
+  );
+
+  loadProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profileActions.loadProfile),
+      switchMap(({ id }) =>
+        this.profileService.getAccount(id).pipe(
+          map(profile => profileActions.loadProfileSuccess({ profile }))
+        )
+      )
+    )
+  );
+
+  loadSubscribers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profileActions.loadSubscribers),
+      switchMap(({ limit }) =>
+        this.profileService.getSubscribersShortList(limit).pipe(
+          map(subscribers =>
+            profileActions.loadSubscribersSuccess({ subscribers })
+          )
+        )
+      )
+    )
+  );
+
+  updateProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profileActions.updateProfile),
+      switchMap(({ profile }) =>
+        this.profileService.patchProfile(profile).pipe(
+          map(profile => profileActions.updateProfileSuccess({ profile }))
+        )
+      )
+    )
+  );
+
+  uploadAvatar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profileActions.uploadAvatar),
+      switchMap(({ avatar }) =>
+        this.profileService.uploadAvatar(avatar).pipe(
+          map(profile => profileActions.uploadAvatarSuccess({ profile }))
+        )
+      )
+    )
+  );
 }

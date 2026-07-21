@@ -7,3 +7,18 @@ export const selectFilteredProfiles = createSelector(
 );
 
 export const selectProfileFilters = profileFeature.selectProfileFilters;
+
+export const selectMe = createSelector(
+  profileFeature.selectMe,
+  (me) => me
+);
+
+export const selectProfile = createSelector(
+  profileFeature.selectProfile,
+  (profile) => profile
+);
+
+export const selectSubscribers = createSelector(
+  profileFeature.selectSubscribers,
+  (subscribers) => subscribers
+);

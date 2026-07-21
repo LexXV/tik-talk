@@ -1,8 +1,8 @@
 import { Component, effect, inject, ViewChild } from '@angular/core';
 import { AvatarUploadComponent, ProfileHeaderComponent } from '../../ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProfileService } from '../../data';
-import { firstValueFrom } from 'rxjs';
+import { profileActions, selectMe } from '../../data';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-settings-page',
@@ -12,7 +12,9 @@ import { firstValueFrom } from 'rxjs';
 })
 export class SettingsPageComponent /*aka Reha Settings Page*/ {
   fb = inject(FormBuilder);
-  profileService = inject(ProfileService);
+  store = inject(Store);
+
+  me = this.store.selectSignal(selectMe);
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
@@ -25,13 +27,17 @@ export class SettingsPageComponent /*aka Reha Settings Page*/ {
   });
 
   constructor() {
+    this.store.dispatch(profileActions.loadMe());
+
     effect(() /*: void*/ => {
       // good approach to declare explicitly ": void" when some const / let is being declared
-      //@ts-ignore
+      const me = this.me();
+
+      if (!me) return;
+
       this.form.patchValue({
-        ...this.profileService.me(),
-        //@ts-ignore
-        stack: this.mergeStack(this.profileService.me()?.stack),
+        ...me,
+        stack: this.mergeStack(me.stack)
       });
     });
   }
@@ -43,15 +49,22 @@ export class SettingsPageComponent /*aka Reha Settings Page*/ {
     if (this.form.invalid) return;
 
     if (this.avatarUploader.avatar) {
-      firstValueFrom(this.profileService.uploadAvatar(this.avatarUploader.avatar));
+      this.store.dispatch(
+        profileActions.uploadAvatar({
+          avatar: this.avatarUploader.avatar
+        })
+      );
     }
 
-    firstValueFrom(
-      //@ts-ignore
-      this.profileService.patchProfile({
-        ...this.form.value,
-        stack: this.splitStack(this.form.value.stack),
-      }),
+    this.store.dispatch(
+      profileActions.updateProfile({
+          //@ts-ignore
+          profile: {
+            ...this.form.getRawValue(),
+            stack: this.splitStack(this.form.value.stack)
+          }
+        }
+      )
     );
   }
 

@@ -5,11 +5,17 @@ import { profileActions } from './actions';
 export interface ProfileState {
   profiles: Profile[];
   profileFilters: Record<string, any>;
+  me: Profile | null;
+  profile: Profile | null;
+  subscribers: Profile[];
 }
 
 export const initialState: ProfileState = {
   profiles: [],
-  profileFilters: {}
+  profileFilters: {},
+  me: null,
+  profile: null,
+  subscribers: []
 };
 
 export const profileFeature = createFeature({
@@ -29,6 +35,32 @@ export const profileFeature = createFeature({
         ...state,
         profiles: payload.profiles
       };
-    })
+    }),
+
+    on(profileActions.loadMeSuccess, (state, { me }) => ({
+      ...state,
+      me,
+      profile: me
+    })),
+
+    on(profileActions.loadProfileSuccess, (state, { profile }) => ({
+      ...state,
+      profile
+    })),
+
+    on(profileActions.loadSubscribersSuccess, (state, { subscribers }) => ({
+      ...state,
+      subscribers
+    })),
+
+    on(
+      profileActions.updateProfileSuccess,
+      profileActions.uploadAvatarSuccess,
+      (state, { profile }) => ({
+        ...state,
+        me: profile,
+        profile
+      })
+    )
   )
 });

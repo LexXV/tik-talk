@@ -1,18 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui';
-import { ProfileService } from '../../data/';
+import { profileActions, selectMe, selectProfile, selectSubscribers } from '../../data/';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { AsyncPipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { PostFeedComponent } from '@tt/posts';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-profile-page',
   imports: [
     ProfileHeaderComponent,
-    AsyncPipe,
     SvgIconComponent,
     RouterLink,
     ImgUrlPipe,
@@ -22,23 +20,36 @@ import { PostFeedComponent } from '@tt/posts';
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent /*aka Patient Info Expanded Tab Component*/ {
-  profileService = inject(ProfileService);
+  store = inject(Store);
   route = inject(ActivatedRoute);
   router = inject(Router);
 
-  me$ = toObservable(this.profileService.me);
-  subscribers$ = this.profileService.getSubscribersShortList(6);
-
+  me = this.store.selectSignal(selectMe);
+  subscribers = this.store.selectSignal(selectSubscribers);
   isMyPage = signal(false);
+  profile = this.store.selectSignal(selectProfile);
 
-  profile$ = this.route.params.pipe(
-    switchMap(({ id }) => {
-      this.isMyPage.set(id === 'me' || id === this.profileService.me()?.id);
-      if (id === 'me') return this.me$;
-
-      return this.profileService.getAccount(id);
-    }),
+  currentProfile = computed(() =>
+    this.isMyPage() ? this.me() : this.profile()
   );
+
+  constructor() {
+    this.route.params
+      .pipe(takeUntilDestroyed())
+      .subscribe(({ id }) => {
+        const isMe = id === 'me';
+
+        this.isMyPage.set(isMe);
+
+        this.store.dispatch(
+          isMe
+            ? profileActions.loadMe()
+            : profileActions.loadProfile({ id })
+        );
+
+        this.store.dispatch(profileActions.loadSubscribers({ limit: 6 }));
+      });
+  }
 
   async sendMessage(userId: number) {
     this.router.navigate(['/chats', 'new'], { queryParams: { userId } });

@@ -26,10 +26,19 @@ export const routes: Routes = [
         component: ProfilePageComponent,
         providers: [
           provideState(postFeature),
-          provideEffects(PostEffects)
+          provideEffects(PostEffects),
+          provideState(profileFeature),
+          provideEffects(ProfileEffects),
         ]
       },
-      { path: 'settings', component: SettingsPageComponent },
+      {
+        path: 'settings',
+        component: SettingsPageComponent,
+        providers: [
+          provideState(profileFeature),
+          provideEffects(ProfileEffects),
+        ]
+      },
       {
         path: 'search',
         component: SearchPageComponent,

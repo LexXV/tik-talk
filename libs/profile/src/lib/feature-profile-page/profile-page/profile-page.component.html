@@ -1,4 +1,4 @@
-@if (profile$ | async; as profile) {
+@if (currentProfile(); as profile) {
   <header class="profile-page__header">
     <app-profile-header [profile]="profile"></app-profile-header>
 
@@ -19,7 +19,7 @@
       <h3 class="h6 mb16">Подписчики</h3>
 
       <div class="subscribers-wrapper mb32">
-        @for (subscriber of subscribers$ | async; track subscriber.id) {
+        @for (subscriber of subscribers(); track subscriber.id) {
           <a class="subscriber-avatar-btn" [routerLink]="['/profile', subscriber.id]">
             <img [src]="subscriber.avatarUrl | imgUrl" />
           </a>
