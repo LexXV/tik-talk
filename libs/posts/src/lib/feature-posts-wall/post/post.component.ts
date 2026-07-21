@@ -1,10 +1,10 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { PostComment, Post, PostService } from '../../data';
+import { Component, inject, input, OnInit, Signal } from '@angular/core';
+import { Post, postActions, selectComments, PostComment } from '../../data';
 import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
 import { CommentComponent, PostInputComponent } from '../../ui';
-import { firstValueFrom } from 'rxjs';
 import { GlobalStoreService } from '@tt/shared';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-post',
@@ -22,31 +22,31 @@ import { GlobalStoreService } from '@tt/shared';
 export class PostComponent /*aka kind-of Clinical Orders Worklist with To-Do buttons*/
   implements OnInit
 {
-  postService = inject(PostService);
+  store = inject(Store);
 
   profile = inject(GlobalStoreService).me;
 
   post = input<Post>();
-  comments = signal<PostComment[]>([]);
 
-  async ngOnInit() {
-    this.comments.set(this.post()!.comments);
+  comments!: Signal<PostComment[]>;
+
+  ngOnInit() {
+    const postId = this.post()!.id;
+
+    this.store.dispatch(postActions.loadComments({ postId }));
+
+    this.comments = this.store.selectSignal(selectComments(postId));
   }
 
-  async onCommentCreated(text: string) {
-    await firstValueFrom(
-      this.postService.createComment({
-        text,
-        authorId: this.profile()!.id,
-        postId: this.post()!.id,
+  onCommentCreated(text: string) {
+    this.store.dispatch(
+      postActions.createComment({
+        payload: {
+          text,
+          authorId: this.profile()!.id,
+          postId: this.post()!.id,
+        }
       }),
     );
-
-    await this.onCreated();
-  }
-
-  async onCreated() {
-    const comments = await firstValueFrom(this.postService.getCommentsByPostId(this.post()!.id));
-    this.comments.set(comments);
   }
 }

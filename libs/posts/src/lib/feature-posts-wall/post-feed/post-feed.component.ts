@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { PostInputComponent } from '../../ui';
 import { PostComponent } from '../post/post.component';
-import { PostService } from '../../data';
-import { debounceTime, firstValueFrom, fromEvent } from 'rxjs';
+import { postActions, selectPosts } from '../../data';
+import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Debounce, GlobalStoreService } from '@tt/shared';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-post-feed',
@@ -22,13 +23,13 @@ import { Debounce, GlobalStoreService } from '@tt/shared';
 export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   implements AfterViewInit
 {
-  postService = inject(PostService);
+  store = inject(Store);
   hostElement = inject(ElementRef);
   r2 = inject(Renderer2);
 
   profile = inject(GlobalStoreService).me;
 
-  feed = this.postService.posts;
+  feed = this.store.selectSignal(selectPosts);
 
   /*@HostListener('window:resize')
   //@Debounce(200)
@@ -37,7 +38,7 @@ export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   }*/
 
   constructor() {
-    firstValueFrom(this.postService.fetchPosts());
+    this.store.dispatch(postActions.loadPosts());
 
     fromEvent(window, 'resize')
       .pipe(debounceTime(200), takeUntilDestroyed())
@@ -56,12 +57,13 @@ export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
   }
 
-  async onPostCreated(content: string) {
-    await firstValueFrom(
-      this.postService.createPost({
-        title: 'Клёвый пост',
-        content,
-        authorId: this.profile()!.id,
+  onPostCreated(content: string) {
+    this.store.dispatch(postActions.createPost({
+        payload: {
+          title: 'Клёвый пост',
+          content,
+          authorId: this.profile()!.id,
+        }
       }),
     );
   }

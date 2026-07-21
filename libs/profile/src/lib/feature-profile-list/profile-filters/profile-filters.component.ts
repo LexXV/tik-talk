@@ -1,8 +1,8 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, effect, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileService } from '../../data';
-import { debounceTime, startWith, Subscription, switchMap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { profileActions, selectProfileFilters } from '../../data';
+import { debounceTime, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-profile-filters',
@@ -12,7 +12,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ProfileFiltersComponent /*aka Search at Clinical Orders Page*/ implements OnDestroy {
   fb = inject(FormBuilder);
-  profileService = inject(ProfileService);
+  store = inject(Store);
+
+  filters = this.store.selectSignal(selectProfileFilters);
 
   searchForm = this.fb.group({
     firstName: [''],
@@ -23,18 +25,25 @@ export class ProfileFiltersComponent /*aka Search at Clinical Orders Page*/ impl
   searchFormSub!: Subscription;
 
   constructor() {
+    effect(() => {
+      this.searchForm.patchValue(this.filters(), {
+        emitEvent: false
+      });
+    });
+
+    this.store.dispatch(profileActions.filterEvents({ filters: this.filters() }));
+
     this.searchFormSub = this.searchForm.valueChanges
       .pipe(
-        startWith({}),
         debounceTime(300),
-        switchMap((formValue) => {
-          return this.profileService.filterProfiles(formValue);
-        }), /*,
+        /*
         takeUntilDestroyed()*/ // Starting from Angular 17
         /*,
         takeUntil()*/ // Before Angular 17
       )
-      .subscribe();
+      .subscribe((formValue) => {
+        return this.store.dispatch(profileActions.filterEvents({ filters: formValue }));
+      });
   }
 
   // Before Angular 17
