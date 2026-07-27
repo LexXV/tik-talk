@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { ChatsService } from '@tt/chats';
+import { ChatsService } from '@tt/data-access/chats';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, effect, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { profileActions, selectProfileFilters } from '../../data';
+import { profileActions, selectProfileFilters } from '@tt/data-access/profile';
 import { debounceTime, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 

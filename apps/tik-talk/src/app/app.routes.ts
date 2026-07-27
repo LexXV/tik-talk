@@ -1,19 +1,14 @@
 import { Routes } from '@angular/router';
 import { canActivateAuth, LoginPageComponent } from '@tt/auth';
-import {
-  ProfileEffects,
-  profileFeature,
-  ProfilePageComponent,
-  SearchPageComponent,
-  SettingsPageComponent
-} from '@tt/profile';
+import { ProfilePageComponent, SearchPageComponent, SettingsPageComponent } from '@tt/profile';
 import { LayoutComponent } from '@tt/layout';
 import { NewsPageComponent } from '@tt/news';
 import { chatsRoutes } from '@tt/chats';
 import { COFormsExperimentComponent, ExperimentalComponent } from '@tt/experimental';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { PostEffects, postFeature } from '@tt/posts';
+import { PostEffects, postFeature } from '@tt/data-access/posts';
+import { ProfileEffects, profileFeature } from '@tt/data-access/profile';
 
 export const routes: Routes = [
   {

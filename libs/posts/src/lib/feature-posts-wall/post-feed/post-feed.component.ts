@@ -8,11 +8,12 @@ import {
 } from '@angular/core';
 import { PostInputComponent } from '../../ui';
 import { PostComponent } from '../post/post.component';
-import { postActions, selectPosts } from '../../data';
+import { postActions, selectPosts } from '@tt/data-access/posts';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Debounce, GlobalStoreService } from '@tt/shared';
+import { Debounce } from '@tt/shared';
 import { Store } from '@ngrx/store';
+import { GlobalStoreService } from '@tt/data-access/common';
 
 @Component({
   selector: 'app-post-feed',

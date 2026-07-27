@@ -1,9 +1,9 @@
 import { Component, inject, input, OnInit, Signal } from '@angular/core';
-import { Post, postActions, selectComments, PostComment } from '../../data';
+import { Post, postActions, selectComments, PostComment } from '@tt/data-access/posts';
 import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
 import { CommentComponent, PostInputComponent } from '../../ui';
-import { GlobalStoreService } from '@tt/shared';
+import { GlobalStoreService } from '@tt/data-access/common';
 import { Store } from '@ngrx/store';
 
 @Component({

@@ -1,8 +1,7 @@
 import { Component, inject, input } from '@angular/core';
-import { Profile } from '@tt/interfaces/profile';
+import { Profile, selectMe } from '@tt/data-access/profile';
 import { AvatarCircleComponent } from '@tt/common-ui';
 import { Store } from '@ngrx/store';
-import { selectMe } from '../../data';
 
 @Component({
   selector: 'app-profile-header',

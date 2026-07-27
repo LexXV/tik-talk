@@ -3,10 +3,10 @@ import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { SubscriberCardComponent } from './subscriber-card/subscriber-card.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ProfileService } from '@tt/profile';
+import { ProfileService } from '@tt/data-access/profile';
 import { firstValueFrom } from 'rxjs';
-import { GlobalStoreService } from '@tt/shared';
-import { ChatsService } from '@tt/chats';
+import { GlobalStoreService } from '@tt/data-access/common';
+import { ChatsService } from '@tt/data-access/chats';
 
 @Component({
   selector: 'app-sidebar',

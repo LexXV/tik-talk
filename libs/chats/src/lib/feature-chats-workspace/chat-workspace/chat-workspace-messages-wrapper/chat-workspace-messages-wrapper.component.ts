@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ChatWorkspaceMessageComponent } from './chat-workspace-message/chat-workspace-message.component';
 import { MessageInputComponent } from '../../../ui';
-import { ChatsService, Chat } from '../../../data';
+import { ChatsService, Chat } from '@tt/data-access/chats';
 import { debounceTime, firstValueFrom, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DateTime } from 'luxon';

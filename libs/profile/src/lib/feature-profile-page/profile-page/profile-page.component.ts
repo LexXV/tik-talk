@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui';
-import { profileActions, selectMe, selectProfile, selectSubscribers } from '../../data/';
+import { profileActions, selectMe, selectProfile, selectSubscribers } from '@tt/data-access/profile';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';

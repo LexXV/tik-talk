@@ -1,9 +1,8 @@
 import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
 import { inject, Injectable } from '@angular/core';
 import { delay, map, Observable } from 'rxjs';
-import { ApiService } from '@tt/shared';
-import { ProfileEndpoints } from '@tt/profile';
-import { Profile } from '@tt/interfaces/profile';
+import { ApiService } from '@tt/data-access/common';
+import { Profile, ProfileEndpoints } from '@tt/data-access/profile';
 
 @Injectable({
   providedIn: 'root',
