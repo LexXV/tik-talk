@@ -51,7 +51,7 @@ export class ChatWorkspaceMessagesWrapperComponent /*aka Clinical Order Customiz
     );
     // await firstValueFrom(this.chatsService.sendMessage(this.chat().id, messageText));
 
-    await firstValueFrom(this.chatsService.getChatById(this.chat().id));
+    // await firstValueFrom(this.chatsService.getChatById(this.chat().id));
   }
 
   resizeWrapper() {
