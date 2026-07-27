@@ -33,7 +33,7 @@ export class ChatWorkspaceComponent /*aka Clinical Orders Worklist Row Expanded 
         );
       }
 
-      return timer(0, 3000).pipe(switchMap(() => this.chatsService.getChatById(+id)));
+      return /*timer(0, 3000).pipe(switchMap(() => */this.chatsService.getChatById(+id)/*))*/;
     }),
   );
 }

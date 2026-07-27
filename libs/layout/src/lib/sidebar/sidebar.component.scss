@@ -47,6 +47,19 @@
   height: 16px;
 }
 
+.badge {
+  min-width: 20px;
+  height: 18px;
+  padding: 1px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  color: var(--dark-color);
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .to-subscribers {
   display: flex;
   gap: 10px;

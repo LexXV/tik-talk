@@ -6,6 +6,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '@tt/profile';
 import { firstValueFrom } from 'rxjs';
 import { GlobalStoreService } from '@tt/shared';
+import { ChatsService } from '@tt/chats';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,6 +26,7 @@ export class SidebarComponent /*aka Reha Sidebar Component*/ implements OnInit {
   subscribers$ = this.profileService.getSubscribersShortList();
 
   me = inject(GlobalStoreService).me;
+  unreadCount = inject(ChatsService).unreadCount;
 
   menuItems = [
     {

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ChatsService } from '@tt/chats';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-layout',
@@ -8,4 +10,12 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
-export class LayoutComponent /*aka Reha General Layout PageComponent*/ {}
+export class LayoutComponent /*aka Reha General Layout PageComponent*/ {
+  #chatsService = inject(ChatsService);
+
+  constructor() {
+    this.#chatsService.connectWs()
+      .pipe(takeUntilDestroyed())
+      .subscribe();
+  }
+}

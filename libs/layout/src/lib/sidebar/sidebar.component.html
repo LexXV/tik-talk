@@ -8,6 +8,12 @@
         <a class="menu-item" [routerLink]="[menuItem.link]" routerLinkActive="active">
           <svg [icon]="menuItem.icon"></svg>
           <span>{{ menuItem.label }}</span>
+
+          @if (menuItem.link === 'chats' && unreadCount() > 0) {
+            <span class="badge">
+              {{ unreadCount() }}
+            </span>
+          }
         </a>
       </li>
     }
