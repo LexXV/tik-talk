@@ -22,6 +22,7 @@ export class ChatsService {
   wsAdapter: ChatsWSService = new ChatsWSRxjsService();
 
   activeChatMessages = signal<Message[]>([]);
+  activeChat = signal<Chat | null>(null);
 
   connectWs() {
     return this.wsAdapter.connect({
@@ -40,6 +41,11 @@ export class ChatsService {
     }
 
     if (isNewMessage(message)) {
+      const me = this.me();
+      const activeChat = this.activeChat();
+
+      if (!me || !activeChat) return;
+
       this.activeChatMessages.set([
         ...this.activeChatMessages(),
         {
@@ -49,7 +55,10 @@ export class ChatsService {
           text: message.data.message,
           createdAt: message.data.created_at,
           isRead: false,
-          isMine: false
+          user: activeChat.userFirst.id === message.data.author
+            ? activeChat.userFirst
+            : activeChat.userSecond,
+          isMine: message.data.author === me.id
         }
       ]);
     }
@@ -66,6 +75,8 @@ export class ChatsService {
   getChatById(chatId: number) {
     return this.api.get<Chat>(ChatsEndpoints.read(chatId)).pipe(
       map((chat) => {
+        this.activeChat.set(chat);
+
         const patchedMessages = chat.messages.map((message) => {
           return {
             ...message,
