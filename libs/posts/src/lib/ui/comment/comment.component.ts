@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { PostComment } from '@tt/data-access/posts';
 import { AvatarCircleComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
   imports: [AvatarCircleComponent, DatePipe, TimeAgoPipe],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent /*aka kind-of Clinical Orders statuses history*/ {
   comment = input<PostComment>();

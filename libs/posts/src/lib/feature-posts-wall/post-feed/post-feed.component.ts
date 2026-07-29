@@ -5,6 +5,8 @@ import {
   Renderer2,
   AfterViewInit,
   HostListener,
+  ChangeDetectionStrategy,
+  NgZone,
 } from '@angular/core';
 import { PostInputComponent } from '../../ui';
 import { PostComponent } from '../post/post.component';
@@ -20,6 +22,7 @@ import { GlobalStoreService } from '@tt/data-access/common';
   imports: [PostInputComponent, PostComponent],
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   implements AfterViewInit
@@ -27,6 +30,7 @@ export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   store = inject(Store);
   hostElement = inject(ElementRef);
   r2 = inject(Renderer2);
+  ngZone = inject(NgZone);
 
   profile = inject(GlobalStoreService).me;
 
@@ -41,9 +45,11 @@ export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
   constructor() {
     this.store.dispatch(postActions.loadPosts());
 
-    fromEvent(window, 'resize')
-      .pipe(debounceTime(200), takeUntilDestroyed())
-      .subscribe(() => this.resizeFeed());
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(window, 'resize')
+        .pipe(debounceTime(200), takeUntilDestroyed())
+        .subscribe(() => this.resizeFeed());
+    });
   }
 
   ngAfterViewInit() {

@@ -1,4 +1,10 @@
-import { Component, effect, inject, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  OnDestroy,
+} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { profileActions, selectProfileFilters } from '@tt/data-access/profile';
 import { debounceTime, Subscription } from 'rxjs';
@@ -9,6 +15,7 @@ import { Store } from '@ngrx/store';
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileFiltersComponent /*aka Search at Clinical Orders Page*/ implements OnDestroy {
   fb = inject(FormBuilder);

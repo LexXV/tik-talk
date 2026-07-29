@@ -1,4 +1,9 @@
-import { Component, HostBinding, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  input,
+} from '@angular/core';
 import { Message } from '@tt/data-access/chats';
 import { AvatarCircleComponent } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
@@ -8,6 +13,7 @@ import { DatePipe } from '@angular/common';
   imports: [AvatarCircleComponent, DatePipe],
   templateUrl: './chat-workspace-message.component.html',
   styleUrl: './chat-workspace-message.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWorkspaceMessageComponent /*aka Clinical Order Customized Status*/ {
   message = input.required<Message>();

@@ -1,4 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui';
 import { profileActions, selectMe, selectProfile, selectSubscribers } from '@tt/data-access/profile';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -18,6 +24,7 @@ import { Store } from '@ngrx/store';
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent /*aka Patient Info Expanded Tab Component*/ {
   store = inject(Store);

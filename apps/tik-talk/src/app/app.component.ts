@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ExperimentalStore } from '@tt/experimental';
 
@@ -7,6 +7,7 @@ import { ExperimentalStore } from '@tt/experimental';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   // #experimentalStore = inject(ExperimentalStore);

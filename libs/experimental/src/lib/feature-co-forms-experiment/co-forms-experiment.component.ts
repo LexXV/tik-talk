@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -38,6 +38,7 @@ import { maskitoNumber } from '@maskito/kit';
   ],
   templateUrl: './co-forms-experiment.component.html',
   styleUrl: './co-forms-experiment.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class COFormsExperimentComponent {
   mockService = inject(COMockService);

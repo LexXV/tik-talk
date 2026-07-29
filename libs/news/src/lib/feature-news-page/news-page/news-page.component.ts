@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   imports: [ReactiveFormsModule],
   templateUrl: './news-page.component.html',
   styleUrl: './news-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewsPageComponent /*aka Monitoring Page*/ {
   form = new FormGroup({

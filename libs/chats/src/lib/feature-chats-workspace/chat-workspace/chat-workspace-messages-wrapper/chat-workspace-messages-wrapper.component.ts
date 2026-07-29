@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
   input,
+  NgZone,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -20,12 +22,14 @@ import { ChatDatePipe } from '@tt/common-ui';
   imports: [ChatWorkspaceMessageComponent, MessageInputComponent, ChatDatePipe],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWorkspaceMessagesWrapperComponent /*aka Clinical Order Customization Page*/
   implements AfterViewInit
 {
   chatsService = inject(ChatsService);
   r2 = inject(Renderer2);
+  ngZone = inject(NgZone);
 
   chat = input.required<Chat>();
 
@@ -35,9 +39,11 @@ export class ChatWorkspaceMessagesWrapperComponent /*aka Clinical Order Customiz
   messagesWrapper!: ElementRef<HTMLDivElement>;
 
   constructor() {
-    fromEvent(window, 'resize')
-      .pipe(debounceTime(200), takeUntilDestroyed())
-      .subscribe(() => this.resizeWrapper());
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(window, 'resize')
+        .pipe(debounceTime(200), takeUntilDestroyed())
+        .subscribe(() => this.resizeWrapper());
+    });
   }
 
   ngAfterViewInit() {

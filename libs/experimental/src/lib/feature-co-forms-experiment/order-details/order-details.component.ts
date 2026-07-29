@@ -1,4 +1,9 @@
-import { Component, Input, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  input,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { OrderDetailsForm } from '../clinical-order-form.types';
 
@@ -7,6 +12,7 @@ import { OrderDetailsForm } from '../clinical-order-form.types';
   imports: [ReactiveFormsModule],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderDetailsComponent {
   // form = input.required<FormGroup>();

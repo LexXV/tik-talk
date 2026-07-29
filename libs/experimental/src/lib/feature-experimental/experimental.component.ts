@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ExperimentalStore } from './store/experimental-store';
 import { addNumber, multiplyNumber } from './store/action';
 import { AsyncPipe } from '@angular/common';
@@ -9,7 +9,8 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe
   ],
   templateUrl: './experimental.component.html',
-  styleUrl: './experimental.component.scss'
+  styleUrl: './experimental.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExperimentalComponent {
   #experimentalStore = inject(ExperimentalStore);

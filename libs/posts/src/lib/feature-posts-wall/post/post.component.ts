@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { Post, postActions, selectComments, PostComment } from '@tt/data-access/posts';
 import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
@@ -18,6 +25,7 @@ import { Store } from '@ngrx/store';
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent /*aka kind-of Clinical Orders Worklist with To-Do buttons*/
   implements OnInit

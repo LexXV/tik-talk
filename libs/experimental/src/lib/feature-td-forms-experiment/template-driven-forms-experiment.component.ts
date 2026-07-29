@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 
@@ -7,6 +7,7 @@ import { JsonPipe } from '@angular/common';
   imports: [FormsModule, JsonPipe],
   templateUrl: './template-driven-forms-experiment.component.html',
   styleUrl: './template-driven-forms-experiment.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemplateDrivenFormsExperimentComponent {
   person = {
