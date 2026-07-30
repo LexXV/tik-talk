@@ -1,7 +1,12 @@
-<app-profile-filters> </app-profile-filters>
+<div class="search-page">
+  <app-profile-filters></app-profile-filters>
 
-<div class="profile-card__wrapper">
-  @for (profile of profiles(); track profile.id) {
-    <app-profile-card [profile]="profile"></app-profile-card>
-  }
+  <lib-profile-list
+    [profiles]="profiles()"
+    (loadMore)="onScroll()"
+  ></lib-profile-list>
+  <!--<lib-profile-list
+    [profiles]="(infiniteProfiles$ | async) ?? []"
+    (loadMore)="onScroll()"
+  ></lib-profile-list>-->
 </div>

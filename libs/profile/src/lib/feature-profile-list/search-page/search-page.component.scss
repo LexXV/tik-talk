@@ -1,9 +1,12 @@
 :host {
-  display: grid;
-  grid-gap: 20px;
+  display: block;
+  height: calc(100vh - 40px);
 }
 
-.profile-card__wrapper {
+.search-page {
   display: grid;
-  grid-gap: 8px;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  height: 100%;
+  overflow: hidden;
 }

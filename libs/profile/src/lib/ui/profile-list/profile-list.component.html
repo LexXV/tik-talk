@@ -1,0 +1,38 @@
+<div class="profile-list">
+  @for (profile of profiles(); track profile.id; let last = $last) {
+    <app-profile-card [profile]="profile"></app-profile-card>
+    @if (last) {
+      @defer (on viewport) {
+        <tt-infinite-scroll-trigger
+          (loaded)="loadMore.emit()"
+        ></tt-infinite-scroll-trigger>
+      } @placeholder {
+        <div></div>
+      }
+    }
+  }
+</div>
+
+<!--<div class="profile-list" waIntersectionObserver waIntersectionThreshold="0.5">
+  @for (profile of profiles(); track profile.id; let last = $last) {
+    <app-profile-card
+      (waIntersectionObservee)="last ? onIntersection($event) : null"
+      [profile]="profile"
+    ></app-profile-card>
+  }
+</div>-->
+
+<!--<div
+  class="profile-list"
+  infiniteScroll
+  [scrollWindow]="false"
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="loadMore.emit()"
+>
+  @for (profile of profiles(); track profile.id) {
+    <app-profile-card
+      [profile]="profile"
+    ></app-profile-card>
+  }
+</div>-->
