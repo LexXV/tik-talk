@@ -24,9 +24,7 @@ import { ChatDatePipe } from '@tt/common-ui';
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatWorkspaceMessagesWrapperComponent /*aka Clinical Order Customization Page*/
-  implements AfterViewInit
-{
+export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
   chatsService = inject(ChatsService);
   r2 = inject(Renderer2);
   ngZone = inject(NgZone);

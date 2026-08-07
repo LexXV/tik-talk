@@ -26,7 +26,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfilePageComponent /*aka Patient Info Expanded Tab Component*/ {
+export class ProfilePageComponent {
   store = inject(Store);
   route = inject(ActivatedRoute);
   router = inject(Router);

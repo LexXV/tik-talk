@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './settings-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsPageComponent /*aka Reha Settings Page*/ {
+export class SettingsPageComponent {
   fb = inject(FormBuilder);
   store = inject(Store);
 
@@ -36,8 +36,7 @@ export class SettingsPageComponent /*aka Reha Settings Page*/ {
   constructor() {
     this.store.dispatch(profileActions.loadMe());
 
-    effect(() /*: void*/ => {
-      // good approach to declare explicitly ": void" when some const / let is being declared
+    effect(() => {
       const me = this.me();
 
       if (!me) return;

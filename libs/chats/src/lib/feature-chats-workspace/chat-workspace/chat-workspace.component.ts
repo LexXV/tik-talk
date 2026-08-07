@@ -13,7 +13,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './chat-workspace.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatWorkspaceComponent /*aka Clinical Orders Worklist Row Expanded View*/ {
+export class ChatWorkspaceComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
   chatsService = inject(ChatsService);

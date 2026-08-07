@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './profile-filters.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileFiltersComponent /*aka Search at Clinical Orders Page*/ implements OnDestroy {
+export class ProfileFiltersComponent implements OnDestroy {
   fb = inject(FormBuilder);
   store = inject(Store);
 

@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './post-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostInputComponent /*aka Clinical Order Customization Area at the Page*/ {
+export class PostInputComponent {
   r2 = inject(Renderer2);
 
   profile = inject(GlobalStoreService).me;

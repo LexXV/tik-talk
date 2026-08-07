@@ -28,7 +28,7 @@ import { ChatsService } from '@tt/data-access/chats';
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarComponent /*aka Reha Sidebar Component*/ implements OnInit {
+export class SidebarComponent implements OnInit {
   profileService = inject(ProfileService);
   subscribers$ = this.profileService.getSubscribersShortList();
 

@@ -5,7 +5,7 @@ export interface Chat {
   userFirst: Profile;
   userSecond: Profile;
   messages: Message[];
-  companion?: Profile; // '?' - Non-mandatory
+  companion?: Profile;
 }
 
 export interface Message {

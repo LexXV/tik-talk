@@ -84,7 +84,10 @@
           "buildTarget": "tik-talk:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "proxy-conf.json"
+      }
     },
     "test": {
       "executor": "@angular/build:unit-test"

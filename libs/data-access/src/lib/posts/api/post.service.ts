@@ -1,32 +1,28 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommentCreateDto, Post, PostComment, PostCreateDto } from '../interfaces/post.interface';
 import { map } from 'rxjs';
+import { ApiService } from '../../common';
+import { CommentEndpoints, PostEndpoints } from './post.endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  /*readonly ?*/
-  #http = inject(HttpClient);
-
-  baseApiUrl = 'https://icherniakov.ru/yt-course/';
+  api = inject(ApiService);
 
   createPost(payload: PostCreateDto) {
-    return this.#http.post<Post>(`${this.baseApiUrl}post/`, payload);
+    return this.api.post<Post>(PostEndpoints.create, payload);
   }
 
   fetchPosts() {
-    return this.#http.get<Post[]>(`${this.baseApiUrl}post/`);
+    return this.api.get<Post[]>(PostEndpoints.getAll);
   }
 
   createComment(payload: CommentCreateDto) {
-    return this.#http.post<PostComment>(`${this.baseApiUrl}comment/`, payload);
+    return this.api.post<PostComment>(CommentEndpoints.create, payload);
   }
 
   getCommentsByPostId(postId: number) {
-    return this.#http
-      .get<Post>(`${this.baseApiUrl}post/${postId}`)
-      .pipe(map((res) => res.comments));
+    return this.api.get<Post>(PostEndpoints.read(postId)).pipe(map((res) => res.comments));
   }
 }

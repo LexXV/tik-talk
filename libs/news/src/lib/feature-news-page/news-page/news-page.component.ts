@@ -8,7 +8,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './news-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewsPageComponent /*aka Monitoring Page*/ {
+export class NewsPageComponent {
   form = new FormGroup({
     topic: new FormControl(null, [Validators.required]),
   });

@@ -15,7 +15,7 @@ export class AvatarUploadComponent {
   avatar: File | null = null;
 
   fileBrowserHandler(event: Event) {
-    const file = (event.target as HTMLInputElement)?.files?.[0]; // 'as' is a type assertion
+    const file = (event.target as HTMLInputElement)?.files?.[0];
     this.processFile(file);
   }
 
@@ -29,8 +29,7 @@ export class AvatarUploadComponent {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      this.preview.set(event.target?.result?.toString() ?? ''); // "?" here is an Elvis-operator indicating a variable may be undefined,
-      // but we do not want to check this in compile-time. "??" means what we should use instead when undefined.
+      this.preview.set(event.target?.result?.toString() ?? '');
     };
 
     reader.readAsDataURL(file);

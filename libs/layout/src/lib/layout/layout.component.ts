@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent /*aka Reha General Layout PageComponent*/ {
+export class LayoutComponent {
   #chatsService = inject(ChatsService);
 
   constructor() {

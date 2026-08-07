@@ -24,9 +24,7 @@ import { GlobalStoreService } from '@tt/data-access/common';
   styleUrl: './post-feed.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostFeedComponent /*aka kind-of Clinical Order Customization Page*/
-  implements AfterViewInit
-{
+export class PostFeedComponent implements AfterViewInit {
   store = inject(Store);
   hostElement = inject(ElementRef);
   r2 = inject(Renderer2);

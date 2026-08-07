@@ -27,9 +27,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './post.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostComponent /*aka kind-of Clinical Orders Worklist with To-Do buttons*/
-  implements OnInit
-{
+export class PostComponent implements OnInit {
   store = inject(Store);
 
   profile = inject(GlobalStoreService).me;

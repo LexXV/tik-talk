@@ -20,7 +20,7 @@ import { map, startWith, switchMap } from 'rxjs';
   styleUrl: './chats-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatsListComponent /*aka Clinical Orders Worklist*/ {
+export class ChatsListComponent {
   chatsService = inject(ChatsService);
 
   filterChatsControl = new FormControl('');

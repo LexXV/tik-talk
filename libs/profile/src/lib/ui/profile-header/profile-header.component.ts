@@ -15,9 +15,9 @@ import { Store } from '@ngrx/store';
   styleUrl: './profile-header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileHeaderComponent /*aka Patient Info Header Component*/ {
+export class ProfileHeaderComponent {
   store = inject(Store);
 
-  profile = input<Profile>(); /*New method, instead of @Input decorator right getting a signal*/
+  profile = input<Profile>();
   me = this.store.selectSignal(selectMe);
 }

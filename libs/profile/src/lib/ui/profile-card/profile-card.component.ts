@@ -9,6 +9,6 @@ import { ImgUrlPipe } from '@tt/common-ui';
   styleUrl: './profile-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileCardComponent /*aka Clinical Orders Page*/ {
+export class ProfileCardComponent {
   @Input({ required: true }) profile!: Profile;
 }

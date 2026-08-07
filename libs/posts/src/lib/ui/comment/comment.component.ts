@@ -10,6 +10,6 @@ import { DatePipe } from '@angular/common';
   styleUrl: './comment.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentComponent /*aka kind-of Clinical Orders statuses history*/ {
+export class CommentComponent {
   comment = input<PostComment>();
 }

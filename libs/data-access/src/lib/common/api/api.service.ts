@@ -13,8 +13,14 @@ export class ApiService {
     return `${this.config.apiUrl}${url}`;
   }
 
-  get<T>(url: string) {
-    return this.http.get<T>(this.buildUrl(url));
+  get<T>(
+    url: string,
+    options?: {
+      headers?: HttpHeaders;
+      params?: HttpParams | Record<string, string | number | boolean>;
+    },
+  ) {
+    return this.http.get<T>(this.buildUrl(url), options);
   }
 
   post<T>(
@@ -30,6 +36,17 @@ export class ApiService {
 
   put<T>(url: string, body: unknown) {
     return this.http.put<T>(this.buildUrl(url), body);
+  }
+
+  patch<T>(
+    url: string,
+    body: unknown,
+    options?: {
+      headers?: HttpHeaders;
+      params?: HttpParams | Record<string, string | number | boolean>;
+    },
+  ) {
+    return this.http.patch<T>(this.buildUrl(url), body, options);
   }
 
   delete<T>(url: string) {

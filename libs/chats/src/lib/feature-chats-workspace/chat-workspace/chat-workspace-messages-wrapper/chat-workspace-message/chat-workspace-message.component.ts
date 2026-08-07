@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
   styleUrl: './chat-workspace-message.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatWorkspaceMessageComponent /*aka Clinical Order Customized Status*/ {
+export class ChatWorkspaceMessageComponent {
   message = input.required<Message>();
 
   @HostBinding('class.is-mine')

@@ -1,53 +1,49 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Profile } from '..';
-import { GlobalStoreService, Pageable } from '../../common';
+import { Profile, ProfileEndpoints } from '..';
+import { ApiService, GlobalStoreService, Pageable } from '../../common';
 import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  http = inject(HttpClient);
+  api = inject(ApiService);
   #globalStoreService = inject(GlobalStoreService);
-  baseApiUrl = 'https://icherniakov.ru/yt-course/account/';
 
   getTestAccounts() {
-    return this.http.get<Profile[]>(`${this.baseApiUrl}test_accounts`);
+    return this.api.get<Profile[]>(ProfileEndpoints.getTestAccounts);
   }
 
   getMe() {
-    return this.http
-      .get<Profile>(`${this.baseApiUrl}me`)
+    return this.api
+      .get<Profile>(ProfileEndpoints.getMe)
       .pipe(tap((res) => this.#globalStoreService.me.set(res)));
   }
 
   getAccount(id: string) {
-    return this.http.get<Profile>(`${this.baseApiUrl}${id}`);
+    return this.api.get<Profile>(ProfileEndpoints.read(id));
   }
 
   getSubscribersShortList(subsAmount = 3) {
-    return this.http
-      .get<Pageable<Profile>>(`${this.baseApiUrl}subscribers/`)
+    return this.api
+      .get<Pageable<Profile>>(ProfileEndpoints.getSubscribers)
       .pipe(map((res) => res.items.slice(0, subsAmount)));
   }
 
   patchProfile(profile: Partial<Profile>) {
-    return this.http.patch<Profile>(`${this.baseApiUrl}me`, profile);
+    return this.api.patch<Profile>(ProfileEndpoints.updateMe, profile);
   }
 
   uploadAvatar(file: File) {
     const fd = new FormData();
     fd.append('image', file);
 
-    return this.http.post<Profile>(`${this.baseApiUrl}upload_image`, fd);
+    return this.api.post<Profile>(ProfileEndpoints.uploadAvatar, fd);
   }
 
   filterProfiles(params: Record<string, any>) {
-    // with "any" TypeScript is actually disabled. And it's highly recommended to use "unknown"
-    return this.http
-      .get<Pageable<Profile>>(`${this.baseApiUrl}accounts`, {
-        params,
-      });
+    return this.api.get<Pageable<Profile>>(ProfileEndpoints.getAccounts, {
+      params,
+    });
   }
 }
