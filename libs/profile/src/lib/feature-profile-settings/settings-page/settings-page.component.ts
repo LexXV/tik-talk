@@ -9,10 +9,17 @@ import { AvatarUploadComponent, ProfileHeaderComponent } from '../../ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { profileActions, selectMe } from '@tt/data-access/profile';
 import { Store } from '@ngrx/store';
+import { AddressInputComponent, StackInputComponent } from '@tt/common-ui';
 
 @Component({
   selector: 'app-settings-page',
-  imports: [ProfileHeaderComponent, ReactiveFormsModule, AvatarUploadComponent],
+  imports: [
+    ProfileHeaderComponent,
+    ReactiveFormsModule,
+    AvatarUploadComponent,
+    StackInputComponent,
+    AddressInputComponent,
+  ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +37,8 @@ export class SettingsPageComponent {
     lastName: ['', [Validators.required]],
     username: [{ value: '', disabled: true }, [Validators.required]],
     description: [''],
-    stack: [''],
+    stack: [/*{ value:*/ '' /*, disabled: true }*/],
+    city: [null],
   });
 
   constructor() {
@@ -41,11 +49,16 @@ export class SettingsPageComponent {
 
       if (!me) return;
 
+      //@ts-ignore
       this.form.patchValue({
         ...me,
-        stack: this.mergeStack(me.stack)
+        // stack: this.mergeStack(me.stack),
       });
     });
+
+    /*this.form.valueChanges.subscribe((val) => {
+      console.log(val);
+    })*/
   }
 
   onSave() {
@@ -64,13 +77,12 @@ export class SettingsPageComponent {
 
     this.store.dispatch(
       profileActions.updateProfile({
-          //@ts-ignore
-          profile: {
-            ...this.form.getRawValue(),
-            stack: this.splitStack(this.form.value.stack)
-          }
-        }
-      )
+        //@ts-ignore
+        profile: {
+          ...this.form.getRawValue(),
+          // stack: this.splitStack(this.form.value.stack),
+        },
+      }),
     );
   }
 

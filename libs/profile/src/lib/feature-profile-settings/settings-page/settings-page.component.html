@@ -31,10 +31,14 @@
       <app-avatar-upload></app-avatar-upload>
     </label>
 
-    <label class="tt-form-label">
+    <!--<label class="tt-form-label">
       <span class="tt-form-label__text">Навыки (стэк)</span>
       <input type="text" class="tt-form-input" formControlName="stack" />
-    </label>
+    </label>-->
+
+    <lib-tt-stack-input formControlName="stack"></lib-tt-stack-input>
+
+    <lib-tt-address-input formControlName="city"></lib-tt-address-input>
   </div>
 
   <div>

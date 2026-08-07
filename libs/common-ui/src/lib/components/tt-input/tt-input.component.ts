@@ -1,0 +1,68 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
+
+@Component({
+  selector: 'lib-tt-input',
+  imports: [FormsModule, ReactiveFormsModule],
+  templateUrl: './tt-input.component.html',
+  styleUrl: './tt-input.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => TtInputComponent),
+    },
+  ],
+})
+export class TtInputComponent implements ControlValueAccessor {
+  type = input<'text' | 'password'>('text');
+  placeholder = input<string>();
+
+  disabled = signal<boolean>(false);
+
+  onChange: any;
+  onTouched: any;
+
+  value = signal<string | null>(null);
+
+  blurred = output<void>();
+
+  writeValue(val: string | null) {
+    this.value.set(val);
+  }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled.set(isDisabled);
+  }
+
+  onModelChange(val: string | null) {
+    this.value.set(val);
+    this.onChange(val);
+  }
+
+  onBlur() {
+    this.onTouched();
+    this.blurred.emit();
+  }
+}
