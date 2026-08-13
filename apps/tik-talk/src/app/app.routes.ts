@@ -4,7 +4,11 @@ import { ProfilePageComponent, SearchPageComponent, SettingsPageComponent } from
 import { LayoutComponent } from '@tt/layout';
 import { NewsPageComponent } from '@tt/news';
 import { chatsRoutes } from '@tt/chats';
-import { COFormsExperimentComponent, ExperimentalComponent } from '@tt/experimental';
+import {
+  COFormsExperimentComponent,
+  ExperimentalComponent,
+  RxjsExperimentComponent,
+} from '@tt/experimental';
 import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { PostEffects, postFeature } from '@tt/data-access/posts';
@@ -53,4 +57,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'experimental', component: COFormsExperimentComponent },
   { path: 'experimental2', component: ExperimentalComponent },
+  { path: 'experimental3', component: RxjsExperimentComponent },
 ];

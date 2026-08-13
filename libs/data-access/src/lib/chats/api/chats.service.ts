@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Chat, LastMessageRes, Message } from '..';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { ApiService, GlobalStoreService } from '../../common';
 import { ChatsEndpoints, MessageEndpoints } from './chats.endpoints';
 import { ChatsWSService } from '../interfaces/chats-ws-service.interface';
@@ -18,6 +18,10 @@ export class ChatsService {
   #authService = inject(AuthService);
   me = inject(GlobalStoreService).me;
   unreadCount = signal(0);
+
+  #subject$ = new Subject<number>();
+  subject$ = this.#subject$.asObservable();
+
   // wsAdapter: ChatsWSService = new ChatsWSNativeService();
   wsAdapter: ChatsWSService = new ChatsWSRxjsService();
 
