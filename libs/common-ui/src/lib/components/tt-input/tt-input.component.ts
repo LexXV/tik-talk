@@ -29,6 +29,7 @@ import {
 })
 export class TtInputComponent implements ControlValueAccessor {
   type = input<'text' | 'password'>('text');
+  variant = input<'default' | 'underline'>('default');
   placeholder = input<string>();
 
   disabled = signal<boolean>(false);

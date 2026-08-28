@@ -1,0 +1,20 @@
+<label class="tt-form-label tt-form-label__text">
+  <ng-content></ng-content>
+
+  <select
+    class="tt-select"
+    [class.tt-select__placeholder]="!value()"
+    [ngModel]="value()"
+    (ngModelChange)="onModelChange($event)"
+    (blur)="onBlur()"
+    [disabled]="disabled()"
+  >
+    <option value="">Выберите</option>
+
+    @for (option of options(); track option) {
+      <option [value]="option">
+        {{ option }}
+      </option>
+    }
+  </select>
+</label>

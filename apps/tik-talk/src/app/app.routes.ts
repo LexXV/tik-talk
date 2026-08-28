@@ -13,6 +13,7 @@ import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { PostEffects, postFeature } from '@tt/data-access/posts';
 import { ProfileEffects, profileFeature } from '@tt/data-access/profile';
+import { communitiesRoutes } from '@tt/communities';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,10 @@ export const routes: Routes = [
         loadChildren: () => chatsRoutes,
       },
       { path: 'news', component: NewsPageComponent },
+      {
+        path: 'communities',
+        loadChildren: () => communitiesRoutes,
+      },
     ],
     canActivate: [canActivateAuth],
   },

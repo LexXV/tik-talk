@@ -1,0 +1,26 @@
+.tt-select {
+  height: 45px;
+  border: none;
+  border-bottom: var(--light-border);
+  background: var(--dark-color);
+  color: var(--light-color);
+  font-family: 'JetBrains Mono', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+.tt-select__placeholder {
+  color: var(--light-transparent-color);
+}

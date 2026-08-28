@@ -1,0 +1,19 @@
+<div class="communities-page">
+  <div class="communities-page__header mb24">
+    <h1 class="h4">Сообщества</h1>
+
+    <button class="btn communities-page__create-btn">
+      Создать сообщество
+      <svg icon="communities" class="svg16"></svg>
+    </button>
+  </div>
+
+  <lib-communities-filters></lib-communities-filters>
+
+  <lib-communities-list
+    [communities]="communities()"
+    [meId]="me()?.id ?? null"
+    (subscriptionToggle)="toggleSubscription($event)"
+    (loadMore)="onScroll()"
+  ></lib-communities-list>
+</div>

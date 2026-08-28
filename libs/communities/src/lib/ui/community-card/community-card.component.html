@@ -1,0 +1,52 @@
+<div class="community-card">
+  <app-avatar-circle
+    class="size70"
+    [avatarUrl]="community().avatarUrl"
+    fallbackUrl="/assets/imgs/community-avatar-placeholder.png"
+  ></app-avatar-circle>
+
+  <div class="community-card__content">
+    <div class="community-card__info">
+      <strong class="h6">{{ community().name }}</strong>
+
+      <span class="subtitle">
+        {{ community().subscribersAmount }} подписчиков
+      </span>
+    </div>
+
+    <div class="community-card__tags">
+      @for (theme of community().themes; track theme) {
+        <div class="skill-tag">
+          {{ themeLabels[theme] }}
+        </div>
+      }
+
+      @for (tag of community().tags; track tag) {
+        <div class="skill-tag">
+          {{ tag }}
+        </div>
+      }
+    </div>
+
+    <div class="community-card__action-btns">
+      @if (!isOwner()) {
+        <button
+          class="btn community-card__subscribe-btn"
+          (click)="subscriptionToggle.emit(community())"
+        >
+          @if (community().isJoined) {
+            Отписаться
+          } @else {
+            Подписаться
+            <svg icon="user-plus" class="svg16"></svg>
+          }
+        </button>
+      }
+
+      <button class="btn-icon">
+        <svg icon="arrow-diagonal" class="svg16"></svg>
+      </button>
+    </div>
+  </div>
+</div>
+

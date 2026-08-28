@@ -10,4 +10,5 @@ import { ImgUrlPipe } from '../../pipes';
 })
 export class AvatarCircleComponent {
   avatarUrl = input<string | null>();
+  fallbackUrl = input('/assets/imgs/avatar-placeholder.png');
 }

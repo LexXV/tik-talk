@@ -3,7 +3,7 @@ export interface Profile {
   username: string;
   description: string;
   avatarUrl: string | null;
-  subscriptionsAmount: number;
+  subscribersAmount: number;
   firstName: string;
   lastName: string;
   isActive: boolean;

@@ -1,0 +1,28 @@
+<form
+  class="communities-search-form mb20"
+  [formGroup]="searchForm"
+>
+  <lib-tt-input
+    formControlName="name"
+    variant="underline"
+    placeholder="Выберите"
+  >
+    Название сообщества
+    <svg
+      input-icon
+      icon="search"
+      class="svg16"
+    ></svg>
+  </lib-tt-input>
+
+  <lib-tt-select
+    formControlName="themes"
+    [options]="themeOptions"
+  >
+    Тема
+  </lib-tt-select>
+
+  <lib-tt-stack-input formControlName="tags">
+    Теги
+  </lib-tt-stack-input>
+</form>

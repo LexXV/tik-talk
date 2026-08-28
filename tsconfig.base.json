@@ -23,6 +23,7 @@
       "@tt/news": ["./libs/news/src/index.ts"],
       "@tt/experimental": ["./libs/experimental/src/index.ts"],
       "@tt/data-access/*": ["./libs/data-access/src/lib/*"],
+      "@tt/communities": ["./libs/communities/src/index.ts"],
     },
     "rootDir": "."
   },

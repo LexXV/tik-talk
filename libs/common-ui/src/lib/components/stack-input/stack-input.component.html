@@ -1,20 +1,30 @@
-<div class="stack-control">
-  @for (tech of value(); track tech; let i = $index) {
-    <div class="skill-tag stack-tag">
-      <button
-        type="button"
-        (click)="onTagDelete(i)"
-        class="stack-btn__delete svg16"
-      >
-        <svg icon="cross" class="svg10"></svg>
-      </button>
-      {{ tech }}
-    </div>
-  }
+<div class="tt-form-label">
+  <label class="tt-form-label__text">
+    <ng-content></ng-content>
+  </label>
 
-  <input
-    [(ngModel)]="innerInput"
-    type="text"
-    class="stack-ghost-input"
-  >
+
+  <div class="stack-control">
+    @for (tech of value(); track tech; let i = $index) {
+      <div class="skill-tag stack-tag">
+        <button
+          type="button"
+          (click)="onTagDelete(i)"
+          class="stack-btn__delete svg16"
+        >
+          <svg icon="cross" class="svg10"></svg>
+        </button>
+        {{ tech }}
+      </div>
+    }
+
+    <input
+      [(ngModel)]="innerInput"
+      [disabled]="disabled"
+      type="text"
+      class="stack-ghost-input"
+      placeholder="Выберите"
+      (blur)="onBlur()"
+    >
+  </div>
 </div>

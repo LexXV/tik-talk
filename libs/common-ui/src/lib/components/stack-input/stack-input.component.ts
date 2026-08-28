@@ -45,6 +45,7 @@ export class StackInputComponent implements ControlValueAccessor {
     this.value.set([...this.value(), this.innerInput]);
     this.innerInput = '';
     this.onChange(this.value());
+    this.onTouched();
   }
 
   writeValue(stack: string[] | null) {
@@ -77,5 +78,10 @@ export class StackInputComponent implements ControlValueAccessor {
     tags.splice(i, 1);
     this.value.set(tags);
     this.onChange(tags);
+    this.onTouched();
+  }
+
+  onBlur() {
+    this.onTouched();
   }
 }

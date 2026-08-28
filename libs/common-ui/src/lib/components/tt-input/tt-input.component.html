@@ -1,12 +1,23 @@
-<label class="tt-control-label mb16">
+<label
+  class="tt-control-label mb16"
+  [class.tt-control-label__underline]="variant() === 'underline'"
+>
   <ng-content></ng-content>
-  <input
-    [ngModel]="value()"
-    (ngModelChange)="onModelChange($event)"
-    class="tt-input"
-    [type]="type()"
-    [placeholder]="placeholder()"
-    (blur)="onBlur()"
-    [disabled]="disabled()"
-  />
+
+  <div class="tt-input-wrapper">
+    <input
+      [ngModel]="value()"
+      (ngModelChange)="onModelChange($event)"
+      class="tt-input"
+      [class.tt-input__underline]="variant() === 'underline'"
+      [type]="type()"
+      [placeholder]="placeholder()"
+      (blur)="onBlur()"
+      [disabled]="disabled()"
+    />
+
+    <span class="tt-input-icon">
+      <ng-content select="[input-icon]"></ng-content>
+    </span>
+  </div>
 </label>

@@ -1,0 +1,18 @@
+<div class="communities-list">
+  @for (community of communities(); track community.id; let last = $last) {
+    <lib-community-card
+      [community]="community"
+      [isOwner]="community.admin.id === meId()"
+      (subscriptionToggle)="subscriptionToggle.emit($event)"
+    ></lib-community-card>
+    @if (last) {
+      @defer (on viewport) {
+        <tt-infinite-scroll-trigger
+          (loaded)="loadMore.emit()"
+        ></tt-infinite-scroll-trigger>
+      } @placeholder {
+        <div></div>
+      }
+    }
+  }
+</div>
