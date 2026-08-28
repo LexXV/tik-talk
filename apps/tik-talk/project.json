@@ -47,7 +47,7 @@
           }
         ],
         "styles": ["apps/tik-talk/src/styles.scss"],
-        "outputPath": "dist/tik-talk"
+        "outputPath": "dist/apps/tik-talk"
       },
       "configurations": {
         "production": {
