@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  //--proj-background: green;
+}
+
+header {
+  padding: 4px;
+  background: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+main {
+  padding: 10px;
+}
+
+footer {
+  padding: 4px;
+  background: var(--dark-color);
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid var(--gray-color);
+  //padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #161616;
+}
+
+.proj-content:empty + .about {
+  display: block;
+}
+
+.about {
+  display: none;
+}
+
+h2 {
+  background: var(--primary-color);
+}

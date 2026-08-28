@@ -1,11 +1,14 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   HostListener,
   inject,
   OnInit,
+  viewChild,
+  ViewContainerRef,
 } from '@angular/core';
-import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
+import { ImgUrlPipe, SidebarPortalService, SvgIconComponent } from '@tt/common-ui';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { SubscriberCardComponent } from './subscriber-card/subscriber-card.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -28,8 +31,12 @@ import { ChatsService } from '@tt/data-access/chats';
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
+  sidebarContainer = viewChild('sidebarContainer', { read: ViewContainerRef });
+
   profileService = inject(ProfileService);
+  sidebarPortalService = inject(SidebarPortalService);
+
   subscribers$ = this.profileService.getSubscribersShortList();
 
   me = inject(GlobalStoreService).me;
@@ -60,6 +67,14 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     firstValueFrom(this.profileService.getMe());
+  }
+
+  ngAfterViewInit() {
+    const sidebarContainer = this.sidebarContainer();
+
+    if (!sidebarContainer) return;
+
+    this.sidebarPortalService.registerContainer(sidebarContainer);
   }
 
   /*@HostListener('click', ['$event'])

@@ -20,9 +20,9 @@
 
       <div class="subscribers-wrapper mb32">
         @for (subscriber of subscribers(); track subscriber.id) {
-          <a class="subscriber-avatar-btn" [routerLink]="['/profile', subscriber.id]">
-            <img [src]="subscriber.avatarUrl | imgUrl" />
-          </a>
+          <lib-subscriber-circle
+            [subscriber]="subscriber"
+          ></lib-subscriber-circle>
         }
         <a class="to-subscribers-search" [routerLink]="['/search']"> </a>
       </div>

@@ -1,0 +1,88 @@
+<h2 class="h1">Доска участников</h2>
+
+<form [formGroup]="participantForm" (ngSubmit)="addParticipant()">
+  <lib-tt-input formControlName="name" placeholder="">
+    Имя
+  </lib-tt-input>
+
+  <lib-tt-input formControlName="role" placeholder="">
+    Роль
+  </lib-tt-input>
+
+  <button type="submit" [disabled]="participantForm.invalid" class="btn">Добавить участника</button>
+</form>
+
+<hr>
+
+<h2 class="participants-header" #h2>Список участников</h2>
+
+<!--<div #contentProj>Я ЗДЕСЬ!</div>-->
+<ng-template #contentProj>
+  <div>Я ЗДЕСЬ!</div>
+</ng-template>
+
+<main class="card__wrapper"><!--pew-->
+  <!--@for (participant of participants(); track participant.name) {-->
+  <!--<lib-tt-participant-card
+    [participant]="participant"
+  >
+    &lt;!&ndash;@if (participant.isProgrammer) {
+      <svg icon="upload" ngProjectAs="[top]"></svg>&lt;!&ndash;class="pew"&ndash;&gt;&lt;!&ndash;top&ndash;&gt;
+    }
+
+    <svg icon="chats" svgIcon></svg>
+
+    @if (participant.about) {
+      &lt;!&ndash;<span>{{ participant.about }}</span>&ndash;&gt;
+      <lib-tt-input></lib-tt-input>
+    }&ndash;&gt;
+
+    <lib-tt-proj>&lt;!&ndash;class="pew"&ndash;&gt;
+      <svg icon="chats" svgIcon></svg>
+    </lib-tt-proj>
+
+    <lib-tt-simple-wrapper>
+      &lt;!&ndash;<ng-template #pew>
+        dsffdsfds
+      </ng-template>
+
+      <ng-container #pow>
+
+      </ng-container>
+      <lib-tt-proj>
+        <svg icon="chats" svgIcon></svg>
+      </lib-tt-proj>&ndash;&gt;
+
+      <lib-tt-input [formControl]="control"></lib-tt-input>
+    </lib-tt-simple-wrapper>
+  </lib-tt-participant-card>--><!--#partCar--><!--(click)="test($event)"-->
+
+  <!--<ng-container
+    *ngTemplateOutlet="participantTempl; context: {participant: participant}"
+  ></ng-container>-->
+  <!--<ng-container
+    [ngTemplateOutlet]="participantTempl"
+    [ngTemplateOutletContext]="{$implicit: participant}"
+  ></ng-container>--><!--*ngTemplateOutlet="participantTempl; context: {$implicit: participant}"-->
+  <!--}-->
+  <!--<ng-container #container></ng-container>-->
+  @for (participant of participants(); track participant.name) {
+    <ng-container
+      [ngComponentOutlet]="ParticipantCardComponent"
+      [ngComponentOutletInputs]="{
+      participant: participant
+      }"
+    ></ng-container>
+  }
+</main>
+
+<!--<div *ngIf="false; else participantTempl"></div>-->
+
+<!--<ng-template #participantTempl let-participant="participant">-->
+<!--<ng-template #participantTempl let-participant>
+&lt;!&ndash;<ng-template #participantTempl let-item>&ndash;&gt;
+  <div class="card">
+    <h3>{{ participant?.name }}</h3>
+    <p>{{ participant?.role }}</p>
+  </div>
+</ng-template>-->

@@ -6,6 +6,7 @@ import { NewsPageComponent } from '@tt/news';
 import { chatsRoutes } from '@tt/chats';
 import {
   COFormsExperimentComponent,
+  DynamicContentSandboxComponent,
   ExperimentalComponent,
   RxjsExperimentComponent,
 } from '@tt/experimental';
@@ -63,4 +64,5 @@ export const routes: Routes = [
   { path: 'experimental', component: COFormsExperimentComponent },
   { path: 'experimental2', component: ExperimentalComponent },
   { path: 'experimental3', component: RxjsExperimentComponent },
+  { path: 'dynamic', component: DynamicContentSandboxComponent },
 ];

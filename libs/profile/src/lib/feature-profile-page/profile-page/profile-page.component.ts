@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { PostFeedComponent } from '@tt/posts';
 import { Store } from '@ngrx/store';
+import { SubscriberCircleComponent } from '../subscriber-circle/subscriber-circle.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -21,6 +22,7 @@ import { Store } from '@ngrx/store';
     RouterLink,
     ImgUrlPipe,
     PostFeedComponent,
+    SubscriberCircleComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',

@@ -32,18 +32,24 @@
 </div>
 
 <footer class="sidebar__footer">
-  @if (me(); as me) {
-    @if (me.avatarUrl) {
-      <img [src]="me.avatarUrl | imgUrl" alt="" />
-    } @else {
-      <img src="/assets/imgs/avatar-placeholder.png" alt="" />
+  <div>
+    <ng-container #sidebarContainer></ng-container>
+  </div>
+
+  <div class="sidebar__footer-controls">
+    @if (me(); as me) {
+      @if (me.avatarUrl) {
+        <img [src]="me.avatarUrl | imgUrl" alt="" />
+      } @else {
+        <img src="/assets/imgs/avatar-placeholder.png" alt="" />
+      }
+
+      <div class="medium-text username-text">{{ me.username }}</div>
+
+      <a [routerLink]="['settings']" class="settings-btn">
+        <!-- (click)="onClick($event)"-->
+        <svg icon="settings"></svg>
+      </a>
     }
-
-    <div class="medium-text username-text">{{ me.username }}</div>
-
-    <a [routerLink]="['settings']" class="settings-btn">
-      <!-- (click)="onClick($event)"-->
-      <svg icon="settings"></svg>
-    </a>
-  }
+  </div>
 </footer>

@@ -1,0 +1,32 @@
+@if (participant(); as participant) {
+  <div class="card">
+    <header>
+      Участник
+      <!--<ng-content select=".pew"></ng-content> Do not do so!-->
+      <ng-content select="[top]"></ng-content>
+    </header>
+
+    <main>
+      <h3>{{ participant?.name }}</h3>
+      <p>{{ participant?.role }}</p>
+
+      <!--<lib-tt-proj>
+        <ng-content select="[svgIcon]" ngProjectAs="[svgIcon]"></ng-content>
+      </lib-tt-proj>-->
+    </main>
+
+    <footer>
+      <button class="btn" (click)="isShown.set(!isShown())">Toggle</button>
+
+      @if (isShown()) {
+        <div class="proj-content">
+          <ng-content><!--"О себе" отсутствует - ???--></ng-content>
+        </div>
+
+        <div class="about">
+          "О себе" отсутствует
+        </div>
+      }
+    </footer>
+  </div>
+}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import {
   Profile,
   profileActions,
@@ -10,10 +10,11 @@ import { Store } from '@ngrx/store';
 import { ProfileListComponent } from '../../ui';
 import { firstValueFrom, scan, Subject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { SidebarPortalComponent } from '@tt/common-ui';
 
 @Component({
   selector: 'app-search-page',
-  imports: [ProfileFiltersComponent, ProfileListComponent, AsyncPipe],
+  imports: [ProfileFiltersComponent, ProfileListComponent, AsyncPipe, SidebarPortalComponent],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +23,8 @@ export class SearchPageComponent /*implements OnInit*/ {
   store = inject(Store);
   // profileService = inject(ProfileService);
   profiles = this.store.selectSignal(selectFilteredProfiles);
+
+  profilesLength = computed(() => this.profiles()?.length ?? 0);
 
   /*profilesSubject$ = new Subject<Profile[]>();
 

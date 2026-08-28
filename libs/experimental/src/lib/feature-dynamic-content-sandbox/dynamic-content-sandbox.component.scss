@@ -1,0 +1,31 @@
+hr {
+  margin-top: 26px;
+  margin-bottom: 26px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.card {
+  border: 1px solid var(--gray-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #161616;
+}
+
+.card__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  gap: 16px;
+  border: 3px solid var(--gray-color);
+}
+
+.red {
+  color: red;
+}
+
+/*lib-tt-proj::ng-deep {
+  background: aqua;
+}*/

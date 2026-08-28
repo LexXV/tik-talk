@@ -1,0 +1,17 @@
+@if (subscriber(); as subscriber) {
+  <a
+    #anchor
+    class="subscriber-avatar-btn"
+    [routerLink]="['/profile', subscriber.id]"
+  >
+    <img [src]="subscriber.avatarUrl | imgUrl" />
+  </a>
+
+  @if (isMouseOver()) {
+    <lib-portal [host]="anchor">
+      <div class="tooltip">
+        {{ subscriber.firstName }}
+      </div>
+    </lib-portal>
+  }
+}

@@ -5,6 +5,7 @@ import {
   input,
   output,
   signal,
+  OnDestroy,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -27,7 +28,7 @@ import {
     },
   ],
 })
-export class TtInputComponent implements ControlValueAccessor {
+export class TtInputComponent implements ControlValueAccessor /*, OnDestroy*/ {
   type = input<'text' | 'password'>('text');
   variant = input<'default' | 'underline'>('default');
   placeholder = input<string>();
@@ -40,6 +41,14 @@ export class TtInputComponent implements ControlValueAccessor {
   value = signal<string | null>(null);
 
   blurred = output<void>();
+
+  /*constructor() {
+    console.log('CREATED');
+  }
+
+  ngOnDestroy() {
+    console.log('DESTROYED');
+  }*/
 
   writeValue(val: string | null) {
     this.value.set(val);

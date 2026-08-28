@@ -1,0 +1,13 @@
+:host {
+  background: var(--proj-background, red);
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-content: center;
+}
+
+//:host.pew,
+//:host-context(.pew) {
+:host.pew {
+  background: yellow;
+}

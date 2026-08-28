@@ -33,8 +33,7 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
 
   messages = this.chatsService.activeChatMessages;
 
-  @ViewChild('messagesWrapper')
-  messagesWrapper!: ElementRef<HTMLDivElement>;
+  @ViewChild('messagesWrapper') messagesWrapper!: ElementRef<HTMLDivElement>;
 
   constructor() {
     this.ngZone.runOutsideAngular(() => {
