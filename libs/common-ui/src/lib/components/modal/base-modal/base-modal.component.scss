@@ -1,0 +1,19 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgb(0 0 0 / 50%);
+  backdrop-filter: blur(4px)
+}
+
+.modal {
+  padding: 32px;
+  background: var(--dark-color);
+}

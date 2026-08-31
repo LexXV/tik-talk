@@ -9,6 +9,9 @@ import { SidebarPortalService } from './sidebar-portal/sidebar-portal.service';
 import { SidebarPortalComponent } from './sidebar-portal/sidebar-portal.component';
 import { PortalComponent } from './portal/portal.component';
 import { PortalService } from './portal/portal.service';
+import { BaseModalComponent } from './modal/base-modal/base-modal.component';
+import { ModalHostComponent } from './modal/modal-host/modal-host.component';
+import { ModalService } from './modal/modal.service';
 
 export {
   AvatarCircleComponent,
@@ -22,4 +25,7 @@ export {
   SidebarPortalComponent,
   PortalComponent,
   PortalService,
+  BaseModalComponent,
+  ModalHostComponent,
+  ModalService,
 };

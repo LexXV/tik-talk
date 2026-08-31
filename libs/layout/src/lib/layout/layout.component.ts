@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChatsService } from '@tt/data-access/chats';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ModalHostComponent } from '@tt/common-ui';
 
 @Component({
   selector: 'lib-layout',
-  imports: [RouterOutlet, SidebarComponent],
+  imports: [RouterOutlet, SidebarComponent, ModalHostComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
