@@ -11,5 +11,5 @@
 </div>
 
 @for (chat of chats$ | async; track chat.id) {
-  <button chats [chat]="chat" [routerLink]="[chat.id]" routerLinkActive="active"></button>
+  <button chats [chat]="chat" [routerLink]="[chat.id]" routerLinkActive="active" aria-label="Open chat"></button>
 }

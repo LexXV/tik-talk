@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@tt/data-access/auth';
 import { Router } from '@angular/router';
 import { TtInputComponent } from '@tt/common-ui';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'lib-login-page',
   imports: [ReactiveFormsModule, TtInputComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
@@ -37,7 +32,7 @@ export class LoginPageComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      //@ts-ignore
+      // @ts-expect-error: Login form value is narrower than the API request type.
       this.authService.login(this.form.value).subscribe((res) => {
         this.router.navigate(['']);
         console.log(res);

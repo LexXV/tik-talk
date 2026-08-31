@@ -22,7 +22,7 @@ import { ProjComponent } from '../proj/proj.component';
 import { NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-tt-participant-card',
+  selector: 'lib-participant-card',
   imports: [ProjComponent],
   templateUrl: './participant-card.component.html',
   styleUrl: './participant-card.component.scss',
@@ -31,9 +31,9 @@ import { NgControl } from '@angular/forms';
 })
 export class ParticipantCardComponent implements AfterContentInit {
   // #elRef = inject(ElementRef);
-  #elRef = inject(ElementRef, { skipSelf: true });
+  //#elRef = inject(ElementRef, { skipSelf: true });
 
-  participant = input/*.required*/<Participant>();
+  participant = input/*.required*/ <Participant>();
   isShown = signal(true);
 
   // content = contentChild(ProjComponent);

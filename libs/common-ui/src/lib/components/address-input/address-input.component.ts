@@ -14,7 +14,7 @@ import { DadataSuggestion } from '@tt/data-access/common-ui/interfaces/dadata.in
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'lib-tt-address-input',
+  selector: 'lib-address-input',
   imports: [TtInputComponent, ReactiveFormsModule, AsyncPipe, JsonPipe],
   templateUrl: './address-input.component.html',
   styleUrl: './address-input.component.scss',
@@ -50,6 +50,9 @@ export class AddressInputComponent implements ControlValueAccessor {
     }),
   );
 
+  onChange: (value: string | null) => void = () => undefined;
+  onTouched: () => void = () => undefined;
+
   constructor() {
     this.addressForm.valueChanges.pipe(takeUntilDestroyed()).subscribe((val) => {
       const address = [val.city, val.street, val.building].filter(Boolean).join(', ');
@@ -83,11 +86,11 @@ export class AddressInputComponent implements ControlValueAccessor {
     });
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string | null) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -100,9 +103,6 @@ export class AddressInputComponent implements ControlValueAccessor {
       this.addressForm.enable({ emitEvent: false });
     }
   }
-
-  onChange(value: string | null): void {}
-  onTouched() {}
 
   onSuggestionPick(suggest: DadataSuggestion) {
     this.isDropdownOpened.set(false);

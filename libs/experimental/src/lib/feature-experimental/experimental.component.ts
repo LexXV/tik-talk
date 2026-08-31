@@ -4,10 +4,8 @@ import { addNumber, multiplyNumber } from './store/action';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'tt-experimental',
-  imports: [
-    AsyncPipe
-  ],
+  selector: 'lib-experimental',
+  imports: [AsyncPipe],
   templateUrl: './experimental.component.html',
   styleUrl: './experimental.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

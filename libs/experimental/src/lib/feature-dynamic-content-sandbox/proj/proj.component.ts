@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-tt-proj',
+  selector: 'lib-proj',
   imports: [],
   templateUrl: './proj.component.html',
   styleUrl: './proj.component.scss',

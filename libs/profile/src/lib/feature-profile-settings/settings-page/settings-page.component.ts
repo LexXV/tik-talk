@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, ViewChild } from '@angular/core';
 import { AvatarUploadComponent, ProfileHeaderComponent } from '../../ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { profileActions, selectMe } from '@tt/data-access/profile';
@@ -12,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { AddressInputComponent, StackInputComponent } from '@tt/common-ui';
 
 @Component({
-  selector: 'app-settings-page',
+  selector: 'lib-settings-page',
   imports: [
     ProfileHeaderComponent,
     ReactiveFormsModule,
@@ -49,7 +43,7 @@ export class SettingsPageComponent {
 
       if (!me) return;
 
-      //@ts-ignore
+      // @ts-expect-error: Profile contains fields not represented by this form.
       this.form.patchValue({
         ...me,
         // stack: this.mergeStack(me.stack),
@@ -70,14 +64,14 @@ export class SettingsPageComponent {
     if (this.avatarUploader.avatar) {
       this.store.dispatch(
         profileActions.uploadAvatar({
-          avatar: this.avatarUploader.avatar
-        })
+          avatar: this.avatarUploader.avatar,
+        }),
       );
     }
 
     this.store.dispatch(
       profileActions.updateProfile({
-        //@ts-ignore
+        // @ts-expect-error: Form value does not exactly match the update payload.
         profile: {
           ...this.form.getRawValue(),
           // stack: this.splitStack(this.form.value.stack),

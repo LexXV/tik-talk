@@ -28,7 +28,7 @@ import { MaskitoDirective } from '@maskito/angular';
 import { maskitoNumber } from '@maskito/kit';
 
 @Component({
-  selector: 'co-forms-experiment',
+  selector: 'lib-co-forms-experiment',
   imports: [
     ReactiveFormsModule,
     JsonPipe,

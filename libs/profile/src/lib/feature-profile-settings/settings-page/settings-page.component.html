@@ -1,5 +1,5 @@
 @if (me(); as me) {
-  <app-profile-header [profile]="me"></app-profile-header>
+  <lib-profile-header [profile]="me"></lib-profile-header>
 }
 
 <form class="profile-form__wrapper" [formGroup]="form">
@@ -28,14 +28,14 @@
 
     <label class="tt-form-label">
       <span class="tt-form-label__text">Аватар</span>
-      <app-avatar-upload></app-avatar-upload>
+      <lib-avatar-upload></lib-avatar-upload>
     </label>
 
-    <lib-tt-stack-input formControlName="stack">
+    <lib-stack-input formControlName="stack">
       Навыки
-    </lib-tt-stack-input>
+    </lib-stack-input>
 
-    <lib-tt-address-input formControlName="city"></lib-tt-address-input>
+    <lib-address-input formControlName="city"></lib-address-input>
   </div>
 
   <div>

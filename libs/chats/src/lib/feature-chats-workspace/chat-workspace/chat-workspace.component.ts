@@ -7,7 +7,7 @@ import { filter, of, switchMap, timer } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-chat-workspace',
+  selector: 'lib-chat-workspace',
   imports: [ChatWorkspaceHeaderComponent, ChatWorkspaceMessagesWrapperComponent, AsyncPipe],
   templateUrl: './chat-workspace.component.html',
   styleUrl: './chat-workspace.component.scss',
@@ -25,16 +25,16 @@ export class ChatWorkspaceComponent {
           filter(({ userId }) => userId),
           switchMap(({ userId }) => {
             return this.chatsService.createChat(userId).pipe(
-              switchMap(chat => {
+              switchMap((chat) => {
                 this.router.navigate(['chats', chat.id]);
                 return of(null);
-              })
+              }),
             );
-          })
+          }),
         );
       }
 
-      return /*timer(0, 3000).pipe(switchMap(() => */this.chatsService.getChatById(+id)/*))*/;
+      return /*timer(0, 3000).pipe(switchMap(() => */ this.chatsService.getChatById(+id); /*))*/
     }),
   );
 }

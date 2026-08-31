@@ -4,7 +4,7 @@ import { AvatarCircleComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-comment',
+  selector: 'lib-comment',
   imports: [AvatarCircleComponent, DatePipe, TimeAgoPipe],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',

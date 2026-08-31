@@ -18,7 +18,7 @@ import { GlobalStoreService } from '@tt/data-access/common';
 import { ChatsService } from '@tt/data-access/chats';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'lib-sidebar',
   imports: [
     SvgIconComponent,
     SubscriberCardComponent,

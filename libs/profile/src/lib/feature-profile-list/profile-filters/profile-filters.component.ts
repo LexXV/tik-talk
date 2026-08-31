@@ -1,17 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  OnDestroy,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { profileActions, selectProfileFilters } from '@tt/data-access/profile';
 import { debounceTime, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-profile-filters',
+  selector: 'lib-profile-filters',
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
@@ -34,7 +28,7 @@ export class ProfileFiltersComponent implements OnDestroy {
   constructor() {
     effect(() => {
       this.searchForm.patchValue(this.filters(), {
-        emitEvent: false
+        emitEvent: false,
       });
     });
 

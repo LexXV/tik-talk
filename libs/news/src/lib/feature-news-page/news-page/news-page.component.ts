@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-news-page',
+  selector: 'lib-news-page',
   imports: [ReactiveFormsModule],
   templateUrl: './news-page.component.html',
   styleUrl: './news-page.component.scss',

@@ -23,7 +23,7 @@
 <p class="medium-text mb20">Подписчики</p>
 
 @for (profile of subscribers$ | async; track profile.id) {
-  <app-subscriber-card [profile]="profile"></app-subscriber-card>
+  <lib-subscriber-card [profile]="profile"></lib-subscriber-card>
 }
 
 <div class="mt20 to-subscribers">

@@ -1,9 +1,6 @@
-<app-avatar-circle
-  *ngIf="profile() as profile"
-  class="size32"
-  [avatarUrl]="profile.avatarUrl"
-></app-avatar-circle>
-<!--[avatarUrl]="profile()!.avatarUrl" when using no deprecated *ngIf-->
+@if (profile(); as profile) {
+  <lib-avatar-circle class="size32" [avatarUrl]="profile.avatarUrl"></lib-avatar-circle>
+}
 
 <textarea
   [(ngModel)]="postText"

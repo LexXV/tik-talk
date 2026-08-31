@@ -7,9 +7,9 @@
     ></lib-community-card>
     @if (last) {
       @defer (on viewport) {
-        <tt-infinite-scroll-trigger
+        <lib-infinite-scroll-trigger
           (loaded)="loadMore.emit()"
-        ></tt-infinite-scroll-trigger>
+        ></lib-infinite-scroll-trigger>
       } @placeholder {
         <div></div>
       }

@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { GlobalStoreService } from '@tt/data-access/common';
 
 @Component({
-  selector: 'app-message-input',
+  selector: 'lib-message-input',
   imports: [AvatarCircleComponent, FormsModule, SvgIconComponent],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.scss',

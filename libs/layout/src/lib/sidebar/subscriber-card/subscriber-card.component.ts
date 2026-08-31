@@ -3,7 +3,7 @@ import { Profile } from '@tt/data-access/profile';
 import { ImgUrlPipe } from '@tt/common-ui';
 
 @Component({
-  selector: 'app-subscriber-card',
+  selector: 'lib-subscriber-card',
   imports: [ImgUrlPipe],
   templateUrl: './subscriber-card.component.html',
   styleUrl: './subscriber-card.component.scss',

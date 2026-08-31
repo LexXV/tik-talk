@@ -62,7 +62,7 @@ const initialState: Participant[] = [
 ];
 
 @Component({
-  selector: 'lib-tt-dynamic-content-sandbox',
+  selector: 'lib-dynamic-content-sandbox',
   imports: [
     ReactiveFormsModule,
     TtInputComponent,
@@ -80,7 +80,7 @@ const initialState: Participant[] = [
 })
 export class DynamicContentSandboxComponent /*implements AfterViewInit*/ {
   #fb = inject(FormBuilder);
-  #r2 = inject(Renderer2);
+  //#r2 = inject(Renderer2);
 
   h2Element = viewChild<ElementRef>('h2');
   // card = viewChild<ParticipantCardComponent>(ParticipantCardComponent /*'partCar'*/);
@@ -168,7 +168,7 @@ export class DynamicContentSandboxComponent /*implements AfterViewInit*/ {
     });
   }*/
 
-  test(a: any) {}
+  //test(a: any) {}
 
   nativeSandbox() {
     const h2 = document.querySelector('.participants-header');

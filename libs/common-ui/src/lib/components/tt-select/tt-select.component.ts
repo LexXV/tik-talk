@@ -21,24 +21,24 @@ export class TtSelectComponent implements ControlValueAccessor {
   value = signal<string>('');
   disabled = signal(false);
 
+  onChange: (value: string | null) => void = () => undefined;
+  onTouched: () => void = () => undefined;
+
   writeValue(val: string | null) {
     this.value.set(val ?? '');
   }
 
-  registerOnChange(fn: any) {
+  registerOnChange(fn: (value: string | null) => void) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean) {
     this.disabled.set(isDisabled);
   }
-
-  onChange(value: string | null) {}
-  onTouched() {}
 
   onModelChange(val: string | null) {
     this.value.set(val ?? '');

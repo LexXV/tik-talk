@@ -1,5 +1,5 @@
-<app-post-input (created)="onPostCreated($event)"></app-post-input>
+<lib-post-input (created)="onPostCreated($event)"></lib-post-input>
 
 @for (post of feed(); track post.id) {
-  <app-post [post]="post"></app-post>
+  <lib-post [post]="post"></lib-post>
 }

@@ -10,7 +10,7 @@ import { SvgIconComponent } from '..';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'lib-tt-stack-input',
+  selector: 'lib-stack-input',
   imports: [SvgIconComponent, FormsModule],
   templateUrl: './stack-input.component.html',
   styleUrl: './stack-input.component.scss',
@@ -35,8 +35,12 @@ export class StackInputComponent implements ControlValueAccessor {
 
   innerInput = '';
 
+  onChange: (value: string[] | null) => void = () => undefined;
+
+  onTouched: () => void = () => undefined;
+
   @HostListener('keydown.enter', ['$event'])
-  onEnter(event: /*Keyboard*/Event) {
+  onEnter(event: /*Keyboard*/ Event) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -57,21 +61,17 @@ export class StackInputComponent implements ControlValueAccessor {
     this.value.set(stack);
   }
 
-  registerOnChange(fn: any) {
+  registerOnChange(fn: (value: string[] | null) => void) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean) {
     this.#disabled = isDisabled;
   }
-
-  onChange(value: string[] | null) {}
-
-  onTouched() {}
 
   onTagDelete(i: number) {
     const tags = [...this.value()];

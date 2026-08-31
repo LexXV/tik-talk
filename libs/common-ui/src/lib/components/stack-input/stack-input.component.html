@@ -1,5 +1,5 @@
 <div class="tt-form-label">
-  <label class="tt-form-label__text">
+  <label class="tt-form-label__text" for="stack-input">
     <ng-content></ng-content>
   </label>
 
@@ -19,6 +19,7 @@
     }
 
     <input
+      id="stack-input"
       [(ngModel)]="innerInput"
       [disabled]="disabled"
       type="text"

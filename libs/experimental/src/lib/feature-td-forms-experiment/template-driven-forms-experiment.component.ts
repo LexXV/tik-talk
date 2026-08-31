@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'template-driven-forms-experiment',
+  selector: 'lib-template-driven-forms-experiment',
   imports: [FormsModule, JsonPipe],
   templateUrl: './template-driven-forms-experiment.component.html',
   styleUrl: './template-driven-forms-experiment.component.scss',

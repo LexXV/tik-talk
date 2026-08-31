@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map, startWith, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-chats-list',
+  selector: 'lib-chats-list',
   imports: [
     ChatsBtnComponent,
     FormsModule,

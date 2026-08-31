@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  OnInit,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, Signal } from '@angular/core';
 import { Post, postActions, selectComments, PostComment } from '@tt/data-access/posts';
 import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
@@ -14,7 +7,7 @@ import { GlobalStoreService } from '@tt/data-access/common';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-post',
+  selector: 'lib-post',
   imports: [
     AvatarCircleComponent,
     DatePipe,
@@ -51,7 +44,7 @@ export class PostComponent implements OnInit {
           text,
           authorId: this.profile()!.id,
           postId: this.post()!.id,
-        }
+        },
       }),
     );
   }

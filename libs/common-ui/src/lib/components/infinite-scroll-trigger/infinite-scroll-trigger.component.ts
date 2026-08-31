@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, output } from '@angular/core';
 
 @Component({
-  selector: 'tt-infinite-scroll-trigger',
+  selector: 'lib-infinite-scroll-trigger',
   imports: [],
   templateUrl: './infinite-scroll-trigger.component.html',
   styleUrl: './infinite-scroll-trigger.component.scss',

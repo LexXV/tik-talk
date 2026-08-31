@@ -1,11 +1,11 @@
 <div class="profile-list">
   @for (profile of profiles(); track profile.id; let last = $last) {
-    <app-profile-card [profile]="profile"></app-profile-card>
+    <lib-profile-card [profile]="profile"></lib-profile-card>
     @if (last) {
       @defer (on viewport) {
-        <tt-infinite-scroll-trigger
+        <lib-infinite-scroll-trigger
           (loaded)="loadMore.emit()"
-        ></tt-infinite-scroll-trigger>
+        ></lib-infinite-scroll-trigger>
       } @placeholder {
         <div></div>
       }

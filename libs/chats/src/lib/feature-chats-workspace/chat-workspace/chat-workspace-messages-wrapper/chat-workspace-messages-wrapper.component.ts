@@ -18,7 +18,7 @@ import { DateTime } from 'luxon';
 import { ChatDatePipe } from '@tt/common-ui';
 
 @Component({
-  selector: 'app-chat-workspace-messages-wrapper',
+  selector: 'lib-chat-workspace-messages-wrapper',
   imports: [ChatWorkspaceMessageComponent, MessageInputComponent, ChatDatePipe],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
@@ -48,10 +48,7 @@ export class ChatWorkspaceMessagesWrapperComponent implements AfterViewInit {
   }
 
   async onSendMessage(messageText: string) {
-    this.chatsService.wsAdapter.sendMessage(
-      messageText,
-      this.chat().id
-    );
+    this.chatsService.wsAdapter.sendMessage(messageText, this.chat().id);
     // await firstValueFrom(this.chatsService.sendMessage(this.chat().id, messageText));
 
     // await firstValueFrom(this.chatsService.getChatById(this.chat().id));

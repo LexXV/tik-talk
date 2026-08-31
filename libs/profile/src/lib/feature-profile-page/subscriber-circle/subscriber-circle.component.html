@@ -4,7 +4,7 @@
     class="subscriber-avatar-btn"
     [routerLink]="['/profile', subscriber.id]"
   >
-    <img [src]="subscriber.avatarUrl | imgUrl" />
+    <img [src]="subscriber.avatarUrl | imgUrl" alt="Subscriber avatar" />
   </a>
 
   @if (isMouseOver()) {

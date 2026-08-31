@@ -1,12 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ProfileHeaderComponent } from '../../ui';
-import { profileActions, selectMe, selectProfile, selectSubscribers } from '@tt/data-access/profile';
+import {
+  profileActions,
+  selectMe,
+  selectProfile,
+  selectSubscribers,
+} from '@tt/data-access/profile';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
@@ -15,7 +14,7 @@ import { Store } from '@ngrx/store';
 import { SubscriberCircleComponent } from '../subscriber-circle/subscriber-circle.component';
 
 @Component({
-  selector: 'app-profile-page',
+  selector: 'lib-profile-page',
   imports: [
     ProfileHeaderComponent,
     SvgIconComponent,
@@ -38,26 +37,18 @@ export class ProfilePageComponent {
   isMyPage = signal(false);
   profile = this.store.selectSignal(selectProfile);
 
-  currentProfile = computed(() =>
-    this.isMyPage() ? this.me() : this.profile()
-  );
+  currentProfile = computed(() => (this.isMyPage() ? this.me() : this.profile()));
 
   constructor() {
-    this.route.params
-      .pipe(takeUntilDestroyed())
-      .subscribe(({ id }) => {
-        const isMe = id === 'me';
+    this.route.params.pipe(takeUntilDestroyed()).subscribe(({ id }) => {
+      const isMe = id === 'me';
 
-        this.isMyPage.set(isMe);
+      this.isMyPage.set(isMe);
 
-        this.store.dispatch(
-          isMe
-            ? profileActions.loadMe()
-            : profileActions.loadProfile({ id })
-        );
+      this.store.dispatch(isMe ? profileActions.loadMe() : profileActions.loadProfile({ id }));
 
-        this.store.dispatch(profileActions.loadSubscribers({ limit: 6 }));
-      });
+      this.store.dispatch(profileActions.loadSubscribers({ limit: 6 }));
+    });
   }
 
   async sendMessage(userId: number) {

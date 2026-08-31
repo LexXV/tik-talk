@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <app-order-details [form]="orderDetails"></app-order-details>
+  <lib-order-details [form]="orderDetails"></lib-order-details>
 
-  <app-patient-criteria [form]="patientCriteria"></app-patient-criteria>
+  <lib-patient-criteria [form]="patientCriteria"></lib-patient-criteria>
 
   <div [formGroup]="scheduling">
     <h3 class="h6 mb16">Scheduling</h3>

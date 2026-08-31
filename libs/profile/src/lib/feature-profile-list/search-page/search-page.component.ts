@@ -13,7 +13,7 @@ import { AsyncPipe } from '@angular/common';
 import { SidebarPortalComponent } from '@tt/common-ui';
 
 @Component({
-  selector: 'app-search-page',
+  selector: 'lib-search-page',
   imports: [ProfileFiltersComponent, ProfileListComponent, AsyncPipe, SidebarPortalComponent],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',

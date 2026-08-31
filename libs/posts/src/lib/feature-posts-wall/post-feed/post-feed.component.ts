@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { GlobalStoreService } from '@tt/data-access/common';
 
 @Component({
-  selector: 'app-post-feed',
+  selector: 'lib-post-feed',
   imports: [PostInputComponent, PostComponent],
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss',
@@ -63,12 +63,13 @@ export class PostFeedComponent implements AfterViewInit {
   }
 
   onPostCreated(content: string) {
-    this.store.dispatch(postActions.createPost({
+    this.store.dispatch(
+      postActions.createPost({
         payload: {
           title: 'Клёвый пост',
           content,
           authorId: this.profile()!.id,
-        }
+        },
       }),
     );
   }

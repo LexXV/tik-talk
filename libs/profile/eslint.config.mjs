@@ -29,6 +29,9 @@ export default [
   {
     files: ['**/*.html'],
     // Override or add rules here
-    rules: {},
+    rules: {
+      // This library's labels also wrap custom form controls.
+      '@angular-eslint/template/label-has-associated-control': 'off',
+    },
   },
 ];

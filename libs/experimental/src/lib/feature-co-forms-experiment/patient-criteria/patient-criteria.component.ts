@@ -3,7 +3,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PatientCriteriaForm } from '../clinical-order-form.types';
 
 @Component({
-  selector: 'app-patient-criteria',
+  selector: 'lib-patient-criteria',
   imports: [ReactiveFormsModule],
   templateUrl: './patient-criteria.component.html',
   styleUrl: './patient-criteria.component.scss',

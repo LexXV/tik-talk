@@ -1,14 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { OrderDetailsForm } from '../clinical-order-form.types';
 
 @Component({
-  selector: 'app-order-details',
+  selector: 'lib-order-details',
   imports: [ReactiveFormsModule],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss',

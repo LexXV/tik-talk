@@ -3,7 +3,7 @@ import { DndDirective, SvgIconComponent } from '@tt/common-ui';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-avatar-upload',
+  selector: 'lib-avatar-upload',
   imports: [SvgIconComponent, DndDirective, FormsModule],
   templateUrl: './avatar-upload.component.html',
   styleUrl: './avatar-upload.component.scss',
