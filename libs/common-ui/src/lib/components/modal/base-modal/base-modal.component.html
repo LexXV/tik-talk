@@ -1,5 +1,20 @@
 <div class="modal-backdrop">
+  <button
+    type="button"
+    class="modal-backdrop-button"
+    aria-label="Close modal"
+    (click)="close()"
+  ></button>
+
   <div class="modal">
+    <button
+      type="button"
+      class="modal-close"
+      (click)="close()"
+    >
+      <svg icon="cross" class="svg16"></svg>
+    </button>
+
     <ng-content></ng-content>
   </div>
 </div>

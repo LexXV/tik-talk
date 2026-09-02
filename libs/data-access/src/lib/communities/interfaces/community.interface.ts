@@ -15,3 +15,10 @@ export interface Community {
 }
 
 export type CommunityTheme = 'PROGRAMMING' | 'TECHNOLOGY' | 'EDUCATION' | 'SPORT' | 'OTHER';
+
+export interface CreateCommunityDto {
+  name: string;
+  themes: CommunityTheme[];
+  tags: string[];
+  description: string;
+}

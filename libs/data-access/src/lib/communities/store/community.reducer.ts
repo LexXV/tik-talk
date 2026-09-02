@@ -48,6 +48,13 @@ export const communityFeature = createFeature({
       };
     }),
 
+    on(communityActions.communityCreated, (state, payload) => {
+      return {
+        ...state,
+        communities: [payload.community, ...state.communities],
+      };
+    }),
+
     on(communityActions.communityJoined, (state, payload) => {
       return {
         ...state,

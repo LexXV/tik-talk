@@ -6,7 +6,7 @@ import {
   selectCommunityPageable,
 } from '..';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom } from 'rxjs';
+import { exhaustMap, map, switchMap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -31,6 +31,21 @@ export class CommunityEffects {
         });
       }),
       map((res) => communityActions.communitiesLoaded({ communities: res.items })),
+    );
+  });
+
+  createCommunity$ = createEffect(() => {
+    return this.#actions$.pipe(
+      ofType(communityActions.createCommunity),
+      exhaustMap(({ community }) =>
+        this.#communityService.createCommunity(community).pipe(
+          map((createdCommunity) =>
+            communityActions.communityCreated({
+              community: createdCommunity,
+            }),
+          ),
+        ),
+      ),
     );
   });
 

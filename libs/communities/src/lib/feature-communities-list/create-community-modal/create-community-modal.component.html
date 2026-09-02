@@ -1,3 +1,74 @@
 <lib-base-modal>
-  Hello World!
+  <form
+    class="create-community-form"
+    [formGroup]="createCommunityForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <lib-tt-input
+      formControlName="name"
+      variant="underline"
+      placeholder="Введите название"
+    >
+      Название сообщества
+    </lib-tt-input>
+
+    @if (createCommunityForm.controls.name.invalid &&
+    createCommunityForm.controls.name.touched) {
+      <span class="form-error">
+        @if (createCommunityForm.controls.name.hasError('required')) {
+          Укажите название сообщества
+        }
+
+        @if (createCommunityForm.controls.name.hasError('minlength')) {
+          Название должно содержать минимум 3 символа
+        }
+      </span>
+    }
+
+    <lib-tt-select
+      formControlName="themes"
+      [options]="themeOptions"
+    >
+      Тема
+    </lib-tt-select>
+
+    @if (createCommunityForm.controls.themes.invalid &&
+    createCommunityForm.controls.themes.touched) {
+      <span class="form-error">
+        Выберите тему
+      </span>
+    }
+
+    <lib-stack-input formControlName="tags">
+      Теги
+    </lib-stack-input>
+
+    <label class="tt-form-label">
+      <span class="tt-form-label__text">Описание</span>
+
+      <textarea
+        formControlName="description"
+        class="description-input"
+        placeholder="Введите описание"
+      ></textarea>
+    </label>
+
+    <div class="create-community-form__actions">
+      <button
+        class="btn create-community-form__cancel"
+        type="button"
+        (click)="onCancel()"
+      >
+        Отмена
+      </button>
+
+      <button
+        class="btn create-community-form__submit"
+        type="submit"
+        [disabled]="createCommunityForm.invalid"
+      >
+        Сохранить
+      </button>
+    </div>
+  </form>
 </lib-base-modal>

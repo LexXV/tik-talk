@@ -13,7 +13,32 @@
   backdrop-filter: blur(4px)
 }
 
+.modal-backdrop-button {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+}
+
 .modal {
+  position: relative;
+  width: min(500px, calc(100vw - 48px));
   padding: 32px;
   background: var(--dark-color);
+}
+
+.modal-close {
+  position: absolute;
+  right: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
 }

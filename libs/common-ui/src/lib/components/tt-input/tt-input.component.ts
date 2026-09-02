@@ -35,8 +35,8 @@ export class TtInputComponent implements ControlValueAccessor /*, OnDestroy*/ {
 
   disabled = signal<boolean>(false);
 
-  onChange: any;
-  onTouched: any;
+  onChange: (value: string | null) => void = () => undefined;
+  onTouched: () => void = () => undefined;
 
   value = signal<string | null>(null);
 
@@ -54,11 +54,11 @@ export class TtInputComponent implements ControlValueAccessor /*, OnDestroy*/ {
     this.value.set(val);
   }
 
-  registerOnChange(fn: any) {
+  registerOnChange(fn: (value: string | null) => void) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
 

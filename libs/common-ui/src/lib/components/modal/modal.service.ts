@@ -1,10 +1,11 @@
-import { Injectable, Type, ViewContainerRef } from '@angular/core';
+import { ComponentRef, Injectable, Type, ViewContainerRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
   #host?: ViewContainerRef;
+  #modalRef?: ComponentRef<unknown>;
 
   registerHost(host: ViewContainerRef) {
     this.#host = host;
@@ -13,6 +14,13 @@ export class ModalService {
   show(component: Type<unknown>) {
     if (!this.#host) return;
 
-    this.#host.createComponent(component);
+    this.close();
+
+    this.#modalRef = this.#host.createComponent(component);
+  }
+
+  close() {
+    this.#modalRef?.destroy();
+    this.#modalRef = undefined;
   }
 }
