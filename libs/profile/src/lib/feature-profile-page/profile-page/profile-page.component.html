@@ -1,3 +1,4 @@
+<!--<a [routerLink]="['/profile', 'me']">ME</a>-->
 @if (currentProfile(); as profile) {
   <header class="profile-page__header">
     <lib-profile-header [profile]="profile"></lib-profile-header>
@@ -39,3 +40,4 @@
     </div>
   </main>
 }
+<router-outlet></router-outlet>

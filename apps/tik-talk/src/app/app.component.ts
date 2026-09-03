@@ -5,7 +5,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { ExperimentalStore } from '@tt/experimental';
 import { PortalService } from '@tt/common-ui';
 
@@ -19,6 +19,7 @@ import { PortalService } from '@tt/common-ui';
 export class AppComponent {
   // #experimentalStore = inject(ExperimentalStore);
   #portalService = inject(PortalService);
+  // #router = inject(Router);
 
   @ViewChild('portalHost', { read: ViewContainerRef })
   set portalHost(portalHost: ViewContainerRef) {
@@ -28,6 +29,11 @@ export class AppComponent {
   }
 
   /*constructor() {
-    this.#experimentalStore.init().subscribe()
+    // this.#experimentalStore.init().subscribe()
+    this.#router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // страница открыта
+      }
+    });
   }*/
 }
