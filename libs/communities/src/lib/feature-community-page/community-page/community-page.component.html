@@ -1,0 +1,79 @@
+@if (community(); as community) {
+  <header class="community-page__header">
+    <div class="community-page__banner">
+      @if (community.bannerUrl) {
+        <img
+          class="community-page__banner-image"
+          [src]="community.bannerUrl | imgUrl"
+          alt=""
+        />
+      } @else {
+        <img
+          class="community-page__banner-image_placeholder"
+          src="/assets/imgs/community-banner-placeholder.png"
+          alt=""
+        />
+      }
+    </div>
+
+    <div class="community-page__header-content">
+      <lib-community-header [community]="community"></lib-community-header>
+
+      @if (isOwner()) {
+        <button class="btn to-settings-btn">
+          Редактировать
+          <svg icon="settings" class="to-settings-icon"></svg>
+        </button>
+      } @else {
+        <button class="btn to-settings-btn" (click)="onSubscriptionToggle()">
+          @if (community.isJoined) {
+            Отписаться
+          } @else {
+            Подписаться
+            <svg icon="user-plus" class="svg16"></svg>
+          }
+        </button>
+      }
+    </div>
+  </header>
+
+  <main class="community-page__body">
+    <lib-post-feed
+      [feed]="communityPosts()"
+      [canCreatePost]="isOwner()"
+      [avatarUrl]="community.avatarUrl"
+      avatarFallbackUrl="/assets/imgs/community-avatar-placeholder.png"
+      (createPost)="onCreatePost($event)"
+    ></lib-post-feed>
+
+    <div>
+      <h3 class="h6 mb16">Подписчики</h3>
+
+      <div class="subscribers-wrapper mb32">
+        @for (subscriber of communitySubscribers(); track subscriber.id) {
+          <lib-subscriber-circle
+            [subscriber]="subscriber"
+          ></lib-subscriber-circle>
+        }
+        <a class="to-subscribers-search" [routerLink]="['/search']"> </a>
+      </div>
+
+      <h3 class="h6 mb16">Темы</h3>
+      <div class="stack-wrapper mb32">
+        @for (theme of community.themes; track theme) {
+          <div class="skill-tag">{{ themeLabels[theme] }}</div>
+        }
+      </div>
+
+      <h3 class="h6 mb16">Теги</h3>
+      <div class="stack-wrapper mb32">
+        @for (tag of community.tags; track tag) {
+          <div class="skill-tag">{{ tag }}</div>
+        }
+      </div>
+
+      <h3 class="h6 mb16">Описание</h3>
+      <p class="medium-text">{{ community.description }}</p>
+    </div>
+  </main>
+}

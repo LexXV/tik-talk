@@ -4,7 +4,7 @@ import { postActions, PostService } from '..';
 import { map, mergeMap, switchMap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostEffects {
   actions$ = inject(Actions);
@@ -14,10 +14,21 @@ export class PostEffects {
     return this.actions$.pipe(
       ofType(postActions.loadPosts),
       switchMap(() => {
-        return this.postService.fetchPosts().pipe(
-          map(posts => postActions.loadPostsSuccess({ posts }))
-        );
-      })
+        return this.postService
+          .fetchPosts()
+          .pipe(map((posts) => postActions.loadPostsSuccess({ posts })));
+      }),
+    );
+  });
+
+  loadCommunityPosts$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postActions.loadCommunityPosts),
+      switchMap(({ communityId }) => {
+        return this.postService
+          .getCommunityPosts(communityId)
+          .pipe(map(({ items }) => postActions.loadCommunityPostsSuccess({ posts: items })));
+      }),
     );
   });
 
@@ -26,9 +37,15 @@ export class PostEffects {
       ofType(postActions.createPost),
       switchMap(({ payload }) => {
         return this.postService.createPost(payload).pipe(
-          map(post => postActions.createPostSuccess({ post }))
+          map((post) =>
+            payload.communityId
+              ? postActions.loadCommunityPosts({
+                  communityId: payload.communityId,
+                })
+              : postActions.createPostSuccess({ post }),
+          ),
         );
-      })
+      }),
     );
   });
 
@@ -37,14 +54,14 @@ export class PostEffects {
       ofType(postActions.loadComments),
       mergeMap(({ postId }) => {
         return this.postService.getCommentsByPostId(postId).pipe(
-          map(comments =>
+          map((comments) =>
             postActions.loadCommentsSuccess({
               postId,
-              comments
-            })
-          )
+              comments,
+            }),
+          ),
         );
-      })
+      }),
     );
   });
 
@@ -55,11 +72,11 @@ export class PostEffects {
         this.postService.createComment(payload).pipe(
           map(() =>
             postActions.loadComments({
-              postId: payload.postId
-            })
-          )
-        )
-      )
+              postId: payload.postId,
+            }),
+          ),
+        ),
+      ),
     );
   });
 }

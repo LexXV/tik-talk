@@ -14,7 +14,12 @@
   </header>
 
   <main class="profile-page__body">
-    <lib-post-feed></lib-post-feed>
+    <lib-post-feed
+      [feed]="posts()"
+      [canCreatePost]="isMyPage()"
+      [avatarUrl]="me()?.avatarUrl ?? null"
+      (createPost)="onCreatePost($event)"
+    ></lib-post-feed>
 
     <div>
       <h3 class="h6 mb16">Подписчики</h3>

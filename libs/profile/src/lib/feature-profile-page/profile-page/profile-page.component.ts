@@ -7,7 +7,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { ProfileHeaderComponent } from '../../ui';
+import { ProfileHeaderComponent, SubscriberCircleComponent } from '../../ui';
 import {
   profileActions,
   selectMe,
@@ -16,10 +16,10 @@ import {
 } from '@tt/data-access/profile';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
+import { SvgIconComponent } from '@tt/common-ui';
 import { PostFeedComponent } from '@tt/posts';
 import { Store } from '@ngrx/store';
-import { SubscriberCircleComponent } from '../subscriber-circle/subscriber-circle.component';
+import { postActions, selectPosts } from '@tt/data-access/posts';
 
 @Component({
   selector: 'lib-profile-page',
@@ -27,7 +27,6 @@ import { SubscriberCircleComponent } from '../subscriber-circle/subscriber-circl
     ProfileHeaderComponent,
     SvgIconComponent,
     RouterLink,
-    ImgUrlPipe,
     PostFeedComponent,
     SubscriberCircleComponent,
     RouterOutlet,
@@ -42,6 +41,7 @@ export class ProfilePageComponent {
   router = inject(Router);
 
   me = this.store.selectSignal(selectMe);
+  posts = this.store.selectSignal(selectPosts);
   subscribers = this.store.selectSignal(selectSubscribers);
   isMyPage = signal(false);
   profile = this.store.selectSignal(selectProfile);
@@ -64,9 +64,27 @@ export class ProfilePageComponent {
     /*effect(() => {
       console.log(this.id());
     });*/
+
+    this.store.dispatch(postActions.loadPosts());
   }
 
   async sendMessage(userId: number) {
     this.router.navigate(['/chats', 'new'], { queryParams: { userId } });
+  }
+
+  onCreatePost(content: string) {
+    const me = this.me();
+
+    if (!me) return;
+
+    this.store.dispatch(
+      postActions.createPost({
+        payload: {
+          title: 'Клёвый пост',
+          content,
+          authorId: me.id,
+        },
+      }),
+    );
   }
 }

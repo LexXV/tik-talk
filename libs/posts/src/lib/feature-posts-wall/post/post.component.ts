@@ -1,5 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit, Signal } from '@angular/core';
-import { Post, postActions, selectComments, PostComment } from '@tt/data-access/posts';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  Signal,
+} from '@angular/core';
+import {
+  Post,
+  postActions,
+  selectComments,
+  PostComment,
+  isCommunityAuthor,
+} from '@tt/data-access/posts';
 import { AvatarCircleComponent, SvgIconComponent, TimeAgoPipe } from '@tt/common-ui';
 import { DatePipe } from '@angular/common';
 import { CommentComponent, PostInputComponent } from '../../ui';
@@ -28,6 +42,20 @@ export class PostComponent implements OnInit {
   post = input<Post>();
 
   comments!: Signal<PostComment[]>;
+
+  authorName = computed(() => {
+    const post = this.post();
+
+    if (!post) return '';
+
+    if (isCommunityAuthor(post.author)) {
+      return post.author.name;
+    }
+
+    return `${post.author.firstName} ${post.author.lastName}`;
+  });
+
+  isCommunityAuthor = isCommunityAuthor;
 
   ngOnInit() {
     const postId = this.post()!.id;

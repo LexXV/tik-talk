@@ -9,13 +9,11 @@ import {
   Renderer2,
 } from '@angular/core';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
-import { GlobalStoreService } from '@tt/data-access/common';
-import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-post-input',
-  imports: [AvatarCircleComponent, NgIf, SvgIconComponent, FormsModule],
+  imports: [AvatarCircleComponent, SvgIconComponent, FormsModule],
   templateUrl: './post-input.component.html',
   styleUrl: './post-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,9 +21,9 @@ import { FormsModule } from '@angular/forms';
 export class PostInputComponent {
   r2 = inject(Renderer2);
 
-  profile = inject(GlobalStoreService).me;
-
   isCommentInput = input(false);
+  avatarUrl = input<string | null>();
+  avatarFallbackUrl = input('/assets/imgs/avatar-placeholder.png');
 
   @Output()
   created = new EventEmitter<string>();

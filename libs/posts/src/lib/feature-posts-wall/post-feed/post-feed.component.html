@@ -1,4 +1,10 @@
-<lib-post-input (created)="onPostCreated($event)"></lib-post-input>
+@if (canCreatePost()) {
+  <lib-post-input
+    [avatarUrl]="avatarUrl()"
+    [avatarFallbackUrl]="avatarFallbackUrl()"
+    (created)="onPostCreated($event)"
+  ></lib-post-input>
+}
 
 @for (post of feed(); track post.id) {
   <lib-post [post]="post"></lib-post>

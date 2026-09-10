@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { CommentCreateDto, Post, PostComment, PostCreateDto } from '../interfaces/post.interface';
 import { map } from 'rxjs';
-import { ApiService } from '../../common';
+import { ApiService, Pageable } from '../../common';
 import { CommentEndpoints, PostEndpoints } from './post.endpoints';
 
 @Injectable({
@@ -16,6 +16,10 @@ export class PostService {
 
   fetchPosts() {
     return this.api.get<Post[]>(PostEndpoints.getAll);
+  }
+
+  getCommunityPosts(communityId: number) {
+    return this.api.get<Pageable<Post>>(PostEndpoints.getCommunityPosts(communityId));
   }
 
   createComment(payload: CommentCreateDto) {

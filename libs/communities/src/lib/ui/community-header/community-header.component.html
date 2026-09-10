@@ -1,0 +1,8 @@
+@if (community(); as community) {
+  <lib-avatar-circle
+    [avatarUrl]="community.avatarUrl"
+    fallbackUrl="/assets/imgs/community-avatar-placeholder.png"
+  ></lib-avatar-circle>
+
+  <h1 class="h4">{{ community.name }}</h1>
+}

@@ -4,12 +4,14 @@ import { postActions } from './post.actions';
 
 export interface PostState {
   posts: Post[];
+  communityPosts: Post[];
   comments: Record<number, PostComment[]>;
 }
 
 export const initialState: PostState = {
   posts: [],
-  comments: {}
+  communityPosts: [],
+  comments: {},
 };
 
 export const postFeature = createFeature({
@@ -19,20 +21,30 @@ export const postFeature = createFeature({
 
     on(postActions.loadPostsSuccess, (state, { posts }) => ({
       ...state,
-      posts
+      posts,
+    })),
+
+    on(postActions.loadCommunityPosts, (state) => ({
+      ...state,
+      communityPosts: [],
+    })),
+
+    on(postActions.loadCommunityPostsSuccess, (state, { posts }) => ({
+      ...state,
+      communityPosts: posts,
     })),
 
     on(postActions.createPostSuccess, (state, { post }) => ({
       ...state,
-      posts: [post, ...state.posts]
+      posts: [post, ...state.posts],
     })),
 
     on(postActions.loadCommentsSuccess, (state, { postId, comments }) => ({
       ...state,
       comments: {
         ...state.comments,
-        [postId]: comments
-      }
-    }))
-  )
+        [postId]: comments,
+      },
+    })),
+  ),
 });

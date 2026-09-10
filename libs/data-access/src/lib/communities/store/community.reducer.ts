@@ -1,12 +1,15 @@
 import { Community } from '..';
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { communityActions } from './community.actions';
+import { Profile } from '../../profile';
 
 export interface CommunityState {
   communities: Community[];
   communityFilters: Record<string, any>;
   page: number;
   size: number;
+  community: Community | null;
+  subscribers: Profile[];
 }
 
 export const initialState: CommunityState = {
@@ -14,6 +17,8 @@ export const initialState: CommunityState = {
   communityFilters: {},
   page: 1,
   size: 10,
+  community: null,
+  subscribers: [],
 };
 
 export const communityFeature = createFeature({
@@ -48,6 +53,26 @@ export const communityFeature = createFeature({
       };
     }),
 
+    on(communityActions.loadCommunity, (state) => ({
+      ...state,
+      community: null,
+      subscribers: [],
+    })),
+
+    on(communityActions.communityLoaded, (state, payload) => {
+      return {
+        ...state,
+        community: payload.community,
+      };
+    }),
+
+    on(communityActions.communitySubscribersLoaded, (state, payload) => {
+      return {
+        ...state,
+        subscribers: payload.subscribers,
+      };
+    }),
+
     on(communityActions.communityCreated, (state, payload) => {
       return {
         ...state,
@@ -68,6 +93,13 @@ export const communityFeature = createFeature({
 
           return community;
         }),
+        community:
+          state.community?.id === payload.communityId
+            ? {
+                ...state.community,
+                isJoined: true,
+              }
+            : state.community,
       };
     }),
 
@@ -84,6 +116,13 @@ export const communityFeature = createFeature({
 
           return community;
         }),
+        community:
+          state.community?.id === payload.communityId
+            ? {
+                ...state.community,
+                isJoined: false,
+              }
+            : state.community,
       };
     }),
   ),

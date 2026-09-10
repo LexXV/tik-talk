@@ -34,6 +34,32 @@ export class CommunityEffects {
     );
   });
 
+  loadCommunity$ = createEffect(() => {
+    return this.#actions$.pipe(
+      ofType(communityActions.loadCommunity),
+      switchMap(({ communityId }) =>
+        this.#communityService
+          .getCommunity(communityId)
+          .pipe(map((community) => communityActions.communityLoaded({ community }))),
+      ),
+    );
+  });
+
+  loadCommunitySubscribers$ = createEffect(() => {
+    return this.#actions$.pipe(
+      ofType(communityActions.loadCommunitySubscribers),
+      switchMap(({ communityId, limit }) =>
+        this.#communityService.getCommunitySubscribers(communityId, limit).pipe(
+          map((subscribers) =>
+            communityActions.communitySubscribersLoaded({
+              subscribers,
+            }),
+          ),
+        ),
+      ),
+    );
+  });
+
   createCommunity$ = createEffect(() => {
     return this.#actions$.pipe(
       ofType(communityActions.createCommunity),

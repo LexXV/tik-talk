@@ -6,6 +6,16 @@ export const selectCommunities = createSelector(
   (communities) => communities,
 );
 
+export const selectCommunity = createSelector(
+  communityFeature.selectCommunity,
+  (community) => community,
+);
+
+export const selectCommunitySubscribers = createSelector(
+  communityFeature.selectSubscribers,
+  (subscribers) => subscribers,
+);
+
 export const selectCommunityFilters = createSelector(
   communityFeature.selectCommunityFilters,
   (filters) => filters,

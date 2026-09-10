@@ -1,16 +1,19 @@
 import { Profile } from '../../profile';
+import { Community } from '../../communities';
 
 export interface PostCreateDto {
   title: string;
   content: string;
   authorId: number;
+  communityId?: number;
 }
 
 export interface Post {
   id: number;
   title: string;
   content: string;
-  author: Profile;
+  author: PostAuthor;
+  communityId: number | null;
   images: string[];
   createdAt: string;
   updatedAt: string;
@@ -38,3 +41,5 @@ export interface CommentCreateDto {
   postId: number;
   /*commentId: number;*/
 }
+
+export type PostAuthor = Profile | Community;

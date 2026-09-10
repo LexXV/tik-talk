@@ -6,6 +6,8 @@ export const postActions = createActionGroup({
   events: {
     'load posts': emptyProps(),
     'load posts success': props<{ posts: Post[] }>(),
+    'load community posts': props<{ communityId: number }>(),
+    'load community posts success': props<{ posts: Post[] }>(),
     'create post': props<{ payload: PostCreateDto }>(),
     'create post success': props<{ post: Post }>(),
 
@@ -14,6 +16,6 @@ export const postActions = createActionGroup({
       postId: number;
       comments: PostComment[];
     }>(),
-    'create comment': props<{ payload: CommentCreateDto }>()
-  }
+    'create comment': props<{ payload: CommentCreateDto }>(),
+  },
 });
