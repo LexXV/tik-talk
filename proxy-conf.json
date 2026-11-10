@@ -1,11 +1,11 @@
 {
   "/yt-course": {
-    "target": "https://icherniakov.ru",
+    "target": "http://localhost:8000",
     "secure": false,
     "changeOrigin": true
   },
   "/yt-course/chat/ws": {
-    "target": "https://icherniakov.ru",
+    "target": "http://localhost:8000",
     "secure": false,
     "changeOrigin": true,
     "ws": true
