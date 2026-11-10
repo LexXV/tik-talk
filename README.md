@@ -166,12 +166,12 @@ ESLint uses the root [eslint.config.mjs](eslint.config.mjs) plus library-level A
 
 ## Testing
 
-Libraries are configured with Jest through Nx; the application has Angular’s `@angular/build:unit-test` target. At the time of writing, the repository contains test configuration files but no `*.spec.ts`, `*.test.ts`, or end-to-end test files.
+Libraries use Jest through Nx; the application retains its separate Angular `@angular/build:unit-test` target. The focused suite covers authentication/session HTTP contracts, NgRx cancellation/concurrency and a real login/profile/post workflow using Angular TestBed and jsdom. See [testing documentation](docs/testing.md) for scenarios, evidence and remaining gaps.
 
-Run all available test targets:
+Run the focused suite without cached or empty success:
 
 ```bash
-yarn nx run-many -t test
+yarn nx run-many -t test --projects=auth,data-access,profile --runInBand --skip-nx-cache --passWithNoTests=false
 ```
 
 Run one library target, for example:
@@ -186,7 +186,7 @@ The Jest targets accept the inherited `ci` configuration, which enables coverage
 yarn nx test auth --configuration=ci
 ```
 
-There are no committed individual test files to demonstrate a file-level command, and no configured E2E runner or coverage command for the application target.
+The workflow tests are router/HTTP/component/store integration tests, not browser E2E. No browser runner is configured, and CI does not yet run the suite. On Windows, use `yarn.cmd` if PowerShell blocks `yarn.ps1`.
 
 ## Build and deployment
 

@@ -1,9 +1,10 @@
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '@tt/data-access/auth/api/auth.service';
-import { BehaviorSubject, catchError, filter, switchMap, tap, throwError } from 'rxjs';
+import { catchError, finalize, Observable, shareReplay, switchMap, throwError } from 'rxjs';
+import { TokenResponse } from '@tt/data-access/auth/interfaces/auth.interface';
 
-const isRefreshing$ = new BehaviorSubject<boolean>(false);
+let refresh$: Observable<TokenResponse> | null = null;
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.url.includes('dadata.ru')) return next(req);
@@ -13,7 +14,10 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (!token) return next(req);
 
-  if (isRefreshing$.value) {
+  // Refresh must reach the backend without waiting on itself or recursively retrying.
+  if (req.url.includes('/auth/refresh')) return next(addToken(req, token));
+
+  if (refresh$) {
     return refreshAndProceed(authService, req, next);
   }
 
@@ -33,23 +37,15 @@ const refreshAndProceed = (
   req: HttpRequest<any>,
   next: HttpHandlerFn,
 ) => {
-  if (!isRefreshing$.value) {
-    isRefreshing$.next(true);
-    return authService.refreshAuthToken().pipe(
-      switchMap((res) => {
-        return next(addToken(req, res.access_token)).pipe(tap(() => isRefreshing$.next(false)));
+  if (!refresh$) {
+    refresh$ = authService.refreshAuthToken().pipe(
+      finalize(() => {
+        refresh$ = null;
       }),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
   }
-
-  if (req.url.includes('refresh')) return next(addToken(req, authService.token!));
-
-  return isRefreshing$.pipe(
-    filter((isRefreshing) => !isRefreshing),
-    switchMap((res) => {
-      return next(addToken(req, authService.token!));
-    }),
-  );
+  return refresh$.pipe(switchMap((res) => next(addToken(req, res.access_token))));
 };
 
 const addToken = (req: HttpRequest<any>, token: string) => {

@@ -1,7 +1,82 @@
 # Testing architecture and testing-engineer
 
-Baseline inspected on 2026-11-10. This change establishes a reusable agent and
-test strategy; it does not implement the proposed suite or certify reliability.
+Baseline inspected on 2026-11-10. The focused suite described below is now
+implemented. The architecture/tooling assessment records the original baseline;
+passing focused tests do not certify all application behavior.
+
+## Executable focused suite
+
+Run from the repository root with installed dependencies (Windows PowerShell:
+use `yarn.cmd` if script execution policy blocks `yarn.ps1`):
+
+```sh
+yarn nx run-many -t test --projects=auth,data-access,profile --runInBand --skip-nx-cache --passWithNoTests=false
+```
+
+| Project / spec | Regression protection |
+| --- | --- |
+| data-access / auth.service.spec.ts | FormData login; 401/500 errors without creating sessions; cookie persistence/restoration; token replacement on refresh; logout and refresh-failure cleanup/navigation. |
+| auth / auth.interceptor.spec.ts | Bearer, tokenless and DaData boundaries; non-403 errors; shared concurrent refresh; new requests queue during refresh; one completed retry per request; failed-refresh waiters and requests after a new login. |
+| data-access / profile.effects.spec.ts | Current filters/pagination in real HTTP; cancellation of stale requests; correct result payload; API failure without false success. |
+| data-access / post.effects.spec.ts | Independent concurrent comment requests with out-of-order responses and correct post IDs. |
+| data-access / community.effects.spec.ts | Duplicate creation suppressed while pending; a later creation succeeds with its own payload. |
+| profile / profile-page.workflow.spec.ts | Protected navigation to login, required-field validation, real login/session/router/profile loading, blank-post rejection, real create-post effect/reducer/selector and rendered feed; cookie-based navigation and logout protection. |
+
+The workflow suite runs Angular TestBed and RouterTestingHarness in Jest/jsdom,
+using production login/profile/feed/input/post components, guard, interceptor,
+HTTP services and NgRx store/effects. Its route fixture omits the layout/chat
+shell; it does not verify the production route configuration itself. HTTP and
+runtime config are the external boundaries: HttpTestingController verifies
+outstanding requests; cookies and subscriptions are cleaned between tests.
+No dependencies, browser runner or live API are needed. These are integration
+tests, not browser E2E or backend authorization tests.
+
+### Demonstrated production correction
+
+Before changing the interceptor, `yarn.cmd nx test auth --runInBand
+--skip-nx-cache --passWithNoTests=false` executed four tests: two passed and two
+failed. Concurrent 403s produced two `/second` retries instead of one; refresh
+failure notified only one of two waiting requests. The flag-based coordinator
+left subscribers waiting/reissuing requests. A shared refresh observable now
+multicasts the token or error, finalizes coordinator state, and lets refresh HTTP
+reach the backend without waiting on itself. The same four tests then passed.
+This is the only production correction in the focused-suite change.
+
+### Current execution and remaining gaps
+
+Implementation validation on Node 24.22.1 / Yarn 1.22.22: the combined command
+above (using `yarn.cmd`) exited 0: auth 1 suite / 6 tests, data-access 4 suites /
+10 tests, profile 1 suite / 2 tests; 18 passed, none failed/skipped. Independent
+review also returned APPROVED WITH RECOMMENDATIONS. Its Low finding TQR-01
+requested direct coverage of a new request arriving during refresh; the added
+test verifies no premature HTTP, one shared refresh, new bearer headers and
+exactly one emission/completion per request. After this addition, `yarn.cmd nx
+test auth --runInBand --skip-nx-cache --passWithNoTests=false` exited 0 with 1
+suite / 7 passed tests and no failed/skipped cases. Independent re-review
+resolved TQR-01 with no new actionable findings. Both the reviewer and lead
+reran the combined uncached command: 6 suites / 19 tests passed, none
+failed or skipped.
+
+The additional `yarn.cmd nx build tik-talk --configuration=development
+--skip-nx-cache` attempt exited 1: esbuild reported `Cannot read directory
+"../..": Access is denied` and could not resolve source/styles/zone.js. The lead
+reran the same command with elevated sandbox permissions: exit 0, application
+bundled successfully. Existing Angular unused-import/optional-chain warnings and
+Sass deprecation warnings remain; the initial failure was a sandbox limitation.
+
+- Effects generally have no catchError/failure actions or UI loading/error
+  contracts. The profile failure test proves error propagation and no false
+  success; it does not establish recovery after failure. NgRx's default effect
+  resubscription is not tested here. Recovery/error UX is a follow-up architectural
+  gap, not a newly invented success requirement.
+- LoginPage subscribes without an error handler and logs successful tokens.
+  Rejected-login UI feedback/retry is not protected by this suite; service-level
+  401/500 behavior is covered. Address error UX and token logging before making
+  production-readiness claims.
+- No real-browser E2E, production-shell routing, server authorization, token-expiry
+  validation, settings/avatar, community UI, chat/WebSocket or backend coverage.
+- CI still has no test job; Node/version and lint-script issues below remain.
+  The suite is a local regression foundation, not an automated deployment gate.
 
 ## Architecture assessment
 
@@ -104,7 +179,7 @@ evidence and prioritized gaps. Clients without custom subagent support can use
 the same instructions directly: ask Codex to read the TOML's developer_instructions
 and perform that role in the main session. This fallback is not a spawned agent.
 
-## Validation of this change
+## Historical validation of the agent setup
 
 Only agent configuration and documentation are introduced. No production code,
 dependencies, tests or CI settings change. CLI version and installed dependency
